@@ -16,47 +16,57 @@ $(document).ready(function(){
     console.log("linked");
 });
 
+var game = game || {};
+game.score = 0;
+game.time = 25;
+game.colorButtonChoice = '';
+game.subtractScore = subtractScore;
+game.generateBoard = generateBoard;
+
+
+
+
 // jQuery selectors
     // try to declare selector variables??
 
+
 // GLOBAL VARIABLES
-var colorButtonChoice = '';
-var score = 0;
-var time = 25;
 
 
 // GAMEPLAY FUNCTIONS
 function addScore(){
-    score += 1;
-    $('#score-div').html('SCORE : ' + score);
+    game.score += 1;
+    $('#score-div').html('SCORE : ' + game.score);
 }
 
 function subtractScore(){
-    score -= 3;
-    $('#score-div').html('SCORE : ' + score);
+    game.score -= 3;
+    $('#score-div').html('SCORE : ' + game.score);
 }
 
 function rgbToArray(colorToConvert){
-    var colorArray = [];
+    colorArray = [];
     var color = colorToConvert.substring(3).replace('(', '').replace(')', ''); // cuts off the rgb part of color tag
     colorArray.push(color.split(', ')); // removes the commas and pushes into color array
     console.log('this is the color array '+ colorArray);
     return colorArray;
 }
 
+function timer(){
+    var timer = setInterval(countDown,1000); // counts down seconds
+    function countDown(){
+        game.time--;
+        if(game.time == 0){
+            clearInterval(timer);
+        }
+        $('#time-div').html('time remaining : '+ game.time);
+    }
+}
 
 // ON CLICK FUNCTIONS
 $('#start').on('click', function(){
     createBoard();
-    var timer = setInterval(countDown,1000); // counts down seconds
-
-    function countDown(){
-        time--;
-        if(time == 0){
-            clearInterval(timer);
-        }
-        $('#time-div').html('time remaining : '+ time);
-    }
+    timer();
     $('#start').fadeOut(500, function(){
         // start button fades out
     });
@@ -65,168 +75,59 @@ $('#start').on('click', function(){
     $('.box').fadeIn(1200, 'swing', function(){
         // boxes fading in at start
     });
-    $('.box').on('click', function(){
-        var id = this.id; // id of box clicked
-        var nextBox = $('#'+id).next();
-        var previousBox = $('#'+id).prev();
-        var clickedColor = $('#'+id).css('backgroundColor'); // stores rgb value of clicked color
-        var nextBoxColor = nextBox.css('backgroundColor'); // stores rgb value of next color
-        var previousBoxColor = previousBox.css('backgroundColor'); // stores rgb value of previous color
-        var clickedColorArray = rgbToArray(clickedColor); // creates array for clicked color
-        var nextBoxColorArray = rgbToArray(nextBoxColor); // creates array for next color
-        var previousBoxColorArray = rgbToArray(previousBoxColor); // creates array for previous color
-        console.log('this is the clicked box id '+ id); // clicked box ID
-        console.log('this is the next box id '+ nextBox[0].id); // next box ID
-        console.log('this is the previous box id '+ previousBox[0].id); // previous box ID
-        console.log('this is the clicked color '+ clickedColor); // rgb of clicked color
-        console.log('this is the next box color '+ nextBoxColor); // rgb of next color
-        console.log('this is the previous box color '+ previousBoxColor); // rgb of prev color
-        console.log('clicked box color array '+ clickedColorArray); //rgb array of clicked color
-        console.log('next box color array '+ nextBoxColorArray); //rgb array of next color
-        console.log('previous box color array '+ previousBoxColorArray); //rgb array of prev color
-        if(colorButtonChoice === 'blue'){
-            var clickedBlue = parseInt(clickedColorArray[0][2]);
-            var nextBlue = parseInt(nextBoxColorArray[0][2]);
-            var previousBlue = parseInt(previousBoxColorArray[0][2]);
 
-            console.log('clicked '+ clickedBlue); // blue value of clicked color array
-            console.log('next '+ nextBlue); // blue value of next color array
-            console.log('prev '+ previousBlue); // blue value of prev color array
-
-            if(clickedBlue < nextBlue && clickedBlue < previousBlue){
-                $('#'+id).text('darker');
-                console.log('darker (blue)');
-                addScore();
-            }
-            else {
-                $('#'+id).text('lighter');
-                console.log('lighter (blue)');
-                subtractScore();
-            }
-        }
-        else if (colorButtonChoice === 'green'){
-            var clickedGreen = parseInt(clickedColorArray[0][1]);
-            var nextGreen = parseInt(nextBoxColorArray[0][1]);
-            var previousGreen = parseInt(previousBoxColorArray[0][1]);
-
-            console.log('clicked '+ clickedGreen); // green value of clicked color array
-            console.log('next '+ nextGreen); // green value of next color array
-            console.log('prev '+ previousGreen); // green value of prev color array
-
-            if(clickedGreen < nextGreen && clickedGreen < previousGreen){
-                $('#'+id).text('darker');
-                console.log('darker (green)');
-                addScore();
-            }
-            else {
-                $('#'+id).text('lighter');
-                console.log('lighter (green)');
-                subtractScore();
-            }
-        }
-        else if (colorButtonChoice === 'red'){
-            var clickedRed = parseInt(clickedColorArray[0][0]);
-            var nextRed = parseInt(nextBoxColorArray[0][0]);
-            var previousRed = parseInt(previousBoxColorArray[0][0]);
-
-            console.log('clicked '+ clickedRed); // red value of clicked color array
-            console.log('next '+ nextRed); // red value of next color array
-            console.log('prev '+ previousRed); // red value of prev color array
-
-            if(clickedRed < nextRed && clickedRed < previousRed){
-                $('#'+id).text('darker');
-                console.log('darker (red)');
-                addScore();
-            }
-            else {
-                $('#'+id).text('lighter');
-                console.log('lighter (red)');
-                subtractScore();
-            }
-        }
-        else {
-            console.log('you probably tried to add the purple button back in and there is no if else statement for that yet');
-        }
-        $('#'+id).fadeOut(500, function(){
-            // must remove because if not then the next and previous boxes evaluated are just the ones that are still on the screen but hidden
-            this.remove();
-            // boxes fading out on click
-        })
-    });
+    $('.box').on('click', game.boxClick);
 });
 
-//thisisis
 
 
 $('.color-button').on('click', function(){
     // turn into chooseColour(color) - green, blue, etc
-    var colorId = this.id;
-    if (colorId === 'blue'){
-        colorButtonChoice = 'blue';
-        console.log('blue works!');
-    }
-    else if (colorId === 'red'){
-        colorButtonChoice =  'red';
-        console.log('red works!');
-    }
-    else if (colorId === 'purple'){
-        colorButtonChoice =  'purple';
-        console.log('purple works!');
-    }
-    else if (colorId === 'teal'){
-        colorButtonChoice =  'teal';
-        console.log('teal works!');
-    }
-    else {
-        colorButtonChoice =  'green';
-        console.log('green works!')
-    }
+    game.colorButtonChoice = this.id; // stores color button choice in game
     $('.color-button').fadeOut(500, function(){}); // color buttons fade out
     $('#start').delay(500).fadeIn(500, function(){}); // start button fades in
-    console.log(colorButtonChoice);
-    return colorButtonChoice;
+    console.log(game.colorButtonChoice);
+    return game.colorButtonChoice;
 });
+
+function setBackgroundColors() {
+    if (game.colorButtonChoice === "blue"){
+        game.colorRandomFunction = randomRGBBlue();
+    }
+    else if (game.colorButtonChoice === "red"){
+        game.colorRandomFunction = randomRGBRed();
+    }
+    else if (game.colorButtonChoice === "purple"){
+        game.colorRandomFunction = randomRGBPurple();
+    }
+    else if (game.colorButtonChoice === "teal"){
+        game.colorRandomFunction = randomRGBTeal();
+    }
+    else if (game.colorButtonChoice === "green"){
+        game.colorRandomFunction = randomRGBGreen();
+    }
+    else{
+
+    }
+}
+
+function generateBoard(){
+    for (var i = 1; i <= 100; i++) {
+        setBackgroundColors();
+        var $newdiv = $('<div class="box"/>');
+        $('body').append($newdiv);
+        $($newdiv).css('background-color', game.colorRandomFunction);
+        $($newdiv).prop('id',i);
+    }
+}
 
 // THIS CAN FOR SURE BE SHORTENED AND REFACTORED
 var createBoard = function(){
     $('body').prepend('<header>');
-    $('body').prepend('<div id="score-div"></div>');
-    $('body').prepend('<div id="time-div"></div>');
-    $('#score-div').text('SCORE : ' + score);
-    $('#time-div').text('time remaining : ' + time);
-    for (var i = 1; i <= 100; i++) {
-        var $newdiv = $('<div class="box"/>');
-        if (colorButtonChoice === "blue"){
-            var colorBlue = randomRGBBlue();
-            $('body').append($newdiv);
-            $($newdiv).css('background-color',colorBlue);
-            $($newdiv).prop('id',i);
-        }
-        else if (colorButtonChoice === "red"){
-            var colorRed = randomRGBRed();
-            $('body').append($newdiv);
-            $($newdiv).css('background-color',colorRed);
-            $($newdiv).prop('id',i);
-        }
-        else if (colorButtonChoice === "purple"){
-            var colorPurple = randomRGBPurple();
-            $('body').append($newdiv);
-            $($newdiv).css('background-color',colorPurple);
-            $($newdiv).prop('id',i);
-        }
-        else if (colorButtonChoice === "teal"){
-            var colorTeal = randomRGBTeal();
-            $('body').append($newdiv);
-            $($newdiv).css('background-color',colorTeal);
-            $($newdiv).prop('id',i);
-        }
-        else{
-            var colorGreen = randomRGBGreen();
-            $('body').append($newdiv);
-            $($newdiv).css('background-color',colorGreen);
-            $($newdiv).prop('id',i);
-        }
-    }
+    $('header').prepend('<div id="score-div"></div>', '<div id="time-div"></div>');
+    $('#score-div').text('SCORE : ' + game.score);
+    $('#time-div').text('time remaining : ' + game.time);
+    generateBoard();
 };
 
 $('body').keydown(function(e){
@@ -286,15 +187,15 @@ function hexRandomColor() {
     }
     return color;
 }
-
-var colorArray = ['red', 'green', 'blue', 'pink'];
-pickRandomArrayColor = function(){
-    for(var i = 0; i < colorArray.length; i++){
-        var color = [];
-        color.push(colorArray[Math.round(Math.random() * colorArray.length)]);
-        console.log(color);
-    }
-};
+//
+// var colorArray = ['red', 'green', 'blue', 'pink'];
+// pickRandomArrayColor = function(){
+//     for(var i = 0; i < colorArray.length; i++){
+//         var color = [];
+//         color.push(colorArray[Math.round(Math.random() * colorArray.length)]);
+//         console.log(color);
+//     }
+// };
 // d3.select("body").append("p").text("New paragraph!");
 // var dataset = [ 5, 10, 15, 20, 25 ];
 // d3.select("body").selectAll("p").data(dataset).enter().append("p").text("New paragraph!");
