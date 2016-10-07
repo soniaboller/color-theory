@@ -48,7 +48,6 @@ function rgbToArray(colorToConvert){
     colorArray = [];
     var color = colorToConvert.substring(3).replace('(', '').replace(')', ''); // cuts off the rgb part of color tag
     colorArray.push(color.split(', ')); // removes the commas and pushes into color array
-    console.log('this is the color array '+ colorArray);
     return colorArray;
 }
 
@@ -62,7 +61,6 @@ function timer(){
         $('#time-div').html('time remaining : '+ game.time);
     }
 }
-
 // ON CLICK FUNCTIONS
 $('#start').on('click', function(){
     createBoard();
