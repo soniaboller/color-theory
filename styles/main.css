@@ -19,6 +19,7 @@ header {
     float: left;
     color: #fff;
     font-family: Raleway, Helvetica, sans-serif;
+    font-weight: 100;
     letter-spacing: 0.5rem;
     font-size: 1.25rem;
 }
@@ -27,6 +28,7 @@ header {
     float: right;
     color: #fff;
     font-family: Raleway, Helvetica, sans-serif;
+    font-weight: 100;
     letter-spacing: 0.5rem;
     font-size: 1.25rem;
     text-align: right;
@@ -34,6 +36,15 @@ header {
 
 div {
     display: inline;
+}
+
+.container {
+    width: 100%;
+    height: inherit;
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+
 }
 
 .box {
@@ -46,16 +57,21 @@ div {
     color: #fff;
     font-family: Raleway, Helvetica, sans-serif;
     text-align: center;
+    line-height: 1000%;
+    position: relative;
 }
 
 .box:hover {
     outline: 1px solid rgba(255, 255, 255, 0.6);
 }
 
+
+/* BUTTON STYLES*/
 .container button {
     padding: 1% 2%;
     margin-top: 45vh;
     color: #636363;
+    font-family: "Raleway", Helvetica, sans-serif;
     font-weight: 600;
     font-size: 1.5rem;
     letter-spacing: .25rem;
@@ -66,7 +82,6 @@ div {
     border: 1px solid #c8c8c8;
     box-sizing: border-box;
 }
-
 
 button:hover {
     background-color: rgba(200,200,200, 0.5);
@@ -106,11 +121,3 @@ button:focus {
     outline: 0;
 }
 
-.container {
-    width: 100%;
-    height: inherit;
-    display: block;
-    margin: 0 auto;
-    text-align: center;
-
-}

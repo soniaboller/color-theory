@@ -8,6 +8,10 @@
 
 // maybe do purple and other mixed colors if time permits?
 
+// make one giant object and attach the functions to said game object (namespace)
+
+// on click -- name function in click function instead of function(){}
+
 $(document).ready(function(){
     console.log("linked");
 });
@@ -56,6 +60,7 @@ $('#start').on('click', function(){
     $('#start').fadeOut(500, function(){
         // start button fades out
     });
+
     $('.container').css('display', 'none');
     $('.box').fadeIn(1200, 'swing', function(){
         // boxes fading in at start
@@ -143,13 +148,18 @@ $('#start').on('click', function(){
             console.log('you probably tried to add the purple button back in and there is no if else statement for that yet');
         }
         $('#'+id).fadeOut(500, function(){
+            // must remove because if not then the next and previous boxes evaluated are just the ones that are still on the screen but hidden
             this.remove();
             // boxes fading out on click
         })
     });
 });
 
+//thisisis
+
+
 $('.color-button').on('click', function(){
+    // turn into chooseColour(color) - green, blue, etc
     var colorId = this.id;
     if (colorId === 'blue'){
         colorButtonChoice = 'blue';
@@ -234,12 +244,14 @@ $('body').keydown(function(e){
 
 // VARIOUS COLOR GENERATORS
 function randomRGBNumber() {
-    return Math.round((Math.random() * 210) + 46);
+    return Math.floor((Math.random() * 150) + 106);
+    // 100 + 156 level 2?
+    // 50 + 206 level 3?
 }
 
 // mid range number to keep colors less dark
 function randomMid(){
-    return Math.round((Math.random() * 150) + 106);
+    return Math.floor((Math.random() * 175) + 106);
 }
 
 function randomRGBBlue(){
