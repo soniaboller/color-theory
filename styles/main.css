@@ -10,10 +10,12 @@ body {
 
 header {
     width: 100%;
+    height: 3.5vh;
 }
 
 #score-div {
-    width: 50%;
+    margin-left: 0.33%;
+    width: 33%;
     float: left;
     color: #fff;
     font-family: Raleway, Helvetica, sans-serif;
@@ -21,7 +23,7 @@ header {
     font-size: 1.25rem;
 }
 #time-div {
-    width: 50%;
+    width: 66.66%;
     float: right;
     color: #fff;
     font-family: Raleway, Helvetica, sans-serif;
@@ -36,8 +38,9 @@ div {
 
 .box {
     width: 8%;
-    height: 50%;
-    margin: 0.25rem 0.125rem;
+    height: 23.75%;
+    /* height: 23.75% (for quarters) 32% (for thirds) 48.25% (for halves)*/
+    margin: 0.125rem 0.125rem;
     float: left;
     display: none;
     color: #fff;
@@ -86,9 +89,15 @@ button#green:hover {
 }
 
 button#purple:hover{
-    background-color: #d000ff;
+    background-color: #af00ff;
     opacity: 0.6;
 }
+
+button#teal:hover{
+    background-color: #00ffff;
+    opacity: 0.6;
+}
+
 button#start {
     display: none;
 }
