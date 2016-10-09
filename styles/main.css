@@ -49,7 +49,6 @@ div {
 
 .box {
     width: 8%;
-    height: 23.75%;
     /* height: 23.75% (for quarters) 32% (for thirds) 48.25% (for halves)*/
     margin: 0.125rem 0.125rem;
     float: left;
@@ -59,6 +58,18 @@ div {
     text-align: center;
     line-height: 1000%;
     position: relative;
+}
+
+.levelOne {
+    height: 48.25%;
+}
+
+.levelTwo {
+    height: 32%;
+}
+
+.levelThree {
+    height: 23.75%;
 }
 
 .box:hover {

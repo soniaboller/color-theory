@@ -12,26 +12,31 @@
 
 // on click -- name function in click function instead of function(){}
 
+// check level
+// reset game to go to next level -- clear out time, maybe keep score?
+
 $(document).ready(function(){
     console.log("linked");
 });
 
 var game = game || {};
 game.score = 0;
-game.time = 25;
+game.time = 10;
+game.level = 1;
 game.colorButtonChoice = '';
+game.addScore = addScore;
 game.subtractScore = subtractScore;
 game.generateBoard = generateBoard;
-
-
-
+game.checkScore = checkScore;
+game.timeCount = timeCount;
+game.checkGameLevel = checkGameLevel;
+// game.nextLevel = nextLevel;
+// game.gameOver = gameOver;
 
 // jQuery selectors
     // try to declare selector variables??
 
-
 // GLOBAL VARIABLES
-
 
 // GAMEPLAY FUNCTIONS
 function addScore(){
@@ -51,12 +56,15 @@ function rgbToArray(colorToConvert){
     return colorArray;
 }
 
-function timer(){
+function timeCount(){
     var timer = setInterval(countDown,1000); // counts down seconds
     function countDown(){
         game.time--;
         if(game.time == 0){
+            game.level +=1;
             clearInterval(timer);
+            game.checkScore();
+            console.log('time zero');
         }
         $('#time-div').html('time remaining : '+ game.time);
     }
@@ -64,7 +72,7 @@ function timer(){
 // ON CLICK FUNCTIONS
 $('#start').on('click', function(){
     createBoard();
-    timer();
+    timeCount();
     $('#start').fadeOut(500, function(){
         // start button fades out
     });
@@ -77,6 +85,32 @@ $('#start').on('click', function(){
     $('.box').on('click', game.boxClick);
 });
 
+
+function checkGameLevel (){
+    if (game.level === 1){
+        $('.box').addClass('levelOne');
+    }
+    else if (game.level === 2){
+        $('.box').addClass('levelTwo');
+    }
+    else if (game.level === 3){
+        $('.box').addClass('levelThree');
+    }
+    else{
+        console.log('you win!');
+    }
+
+}
+
+function checkScore () {
+    if (game.score < 1) {
+        // game.gameOver();
+        alert('game over');
+    }
+    else {
+        game.checkGameLevel();
+    }
+}
 
 
 $('.color-button').on('click', function(){
@@ -116,6 +150,7 @@ function generateBoard(){
         $('body').append($newdiv);
         $($newdiv).css('background-color', game.colorRandomFunction);
         $($newdiv).prop('id',i);
+        game.checkGameLevel();
     }
 }
 
@@ -132,7 +167,6 @@ $('body').keydown(function(e){
     console.log(e.which);
     if(e.which === 27){
         location.reload();
-        console.log('refresh');
     }
 });
 
@@ -176,15 +210,15 @@ function randomRGBTeal(){
 function randomRGBColor() {
     return 'rgb(' + randomRGBNumber() + ', ' + randomRGBNumber() + ', ' + randomRGBNumber() + ')';
 }
-
-function hexRandomColor() {
-    var letters = '0123456789ABCDEF';
-    var color = '#';
-    for (var i = 0; i < 6; i++ ) {
-        color += letters[Math.floor(Math.random() * 16)];
-    }
-    return color;
-}
+//
+// function hexRandomColor() {
+//     var letters = '0123456789ABCDEF';
+//     var color = '#';
+//     for (var i = 0; i < 6; i++ ) {
+//         color += letters[Math.floor(Math.random() * 16)];
+//     }
+//     return color;
+// }
 //
 // var colorArray = ['red', 'green', 'blue', 'pink'];
 // pickRandomArrayColor = function(){

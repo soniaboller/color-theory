@@ -108,11 +108,11 @@ function compareColors() {
     if(game.clickedColor < game.nextColor && game.clickedColor < game.previousColor){
         $('#'+ game.id).text('darker');
         console.log('darker');
-        addScore();
+        game.addScore();
     }
     else {
         $('#'+ game.id).text('lighter');
         console.log('lighter');
-        subtractScore();
+        game.subtractScore();
     }
 }
