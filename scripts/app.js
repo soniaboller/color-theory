@@ -21,16 +21,20 @@ $(document).ready(function(){
 
 var game = game || {};
 game.score = 0;
-game.time = 10;
+game.time = 1000;
 game.level = 1;
 game.colorButtonChoice = '';
+game.rowNumber = 2;
 game.addScore = addScore;
 game.subtractScore = subtractScore;
 game.generateBoard = generateBoard;
 game.checkScore = checkScore;
 game.timeCount = timeCount;
 game.checkGameLevel = checkGameLevel;
-// game.nextLevel = nextLevel;
+game.nextLevel = nextLevel;
+game.createRows = createRows;
+game.clearBoard = clearBoard;
+game.createBoard = createBoard;
 // game.gameOver = gameOver;
 
 // jQuery selectors
@@ -49,55 +53,50 @@ function subtractScore(){
     $('#score-div').html('SCORE : ' + game.score);
 }
 
-function rgbToArray(colorToConvert){
-    colorArray = [];
-    var color = colorToConvert.substring(3).replace('(', '').replace(')', ''); // cuts off the rgb part of color tag
-    colorArray.push(color.split(', ')); // removes the commas and pushes into color array
-    return colorArray;
-}
-
 function timeCount(){
     var timer = setInterval(countDown,1000); // counts down seconds
     function countDown(){
         game.time--;
         if(game.time == 0){
             game.level +=1;
-            clearInterval(timer);
             game.checkScore();
+            clearInterval(timer);
             console.log('time zero');
         }
         $('#time-div').html('time remaining : '+ game.time);
     }
 }
-// ON CLICK FUNCTIONS
-$('#start').on('click', function(){
-    createBoard();
-    timeCount();
-    $('#start').fadeOut(500, function(){
-        // start button fades out
-    });
 
-    $('.container').css('display', 'none');
-    $('.box').fadeIn(1200, 'swing', function(){
-        // boxes fading in at start
-    });
+function clearBoard(){
+    $('div').remove();
+    $('header').remove();
+}
 
-    $('.box').on('click', game.boxClick);
-});
-
+function nextLevel(){
+    game.clearBoard();
+    game.createBoard();
+    $('.box').css('display', 'inline');
+    game.time = 1000;
+    game.timeCount();
+}
 
 function checkGameLevel (){
     if (game.level === 1){
-        $('.box').addClass('levelOne');
+        // $('.box').addClass('levelOne');
+        $('.rows').addClass('levelOne');
     }
     else if (game.level === 2){
-        $('.box').addClass('levelTwo');
+        // $('.box').removeClass('levelOne').addClass('levelTwo');
+        $('.rows').removeClass('levelOne').addClass('levelTwo');
     }
     else if (game.level === 3){
-        $('.box').addClass('levelThree');
+        // $('.box').removeClass('levelTwo').addClass('levelThree');
+        $('.rows').removeClass('levelTwo').addClass('levelThree');
+
     }
     else{
-        console.log('you win!');
+        alert('you win!');
+        location.reload();
     }
 
 }
@@ -106,12 +105,60 @@ function checkScore () {
     if (game.score < 1) {
         // game.gameOver();
         alert('game over');
+        // location.reload()
     }
     else {
-        game.checkGameLevel();
+        game.nextLevel();
     }
 }
 
+
+function createRows() {
+    for (var i = 1; i <= game.rowNumber; i++) {
+        var newRow = $('<div>');
+        $('body').append(newRow);
+        $(newRow).prop('id', 'row-' + i).addClass('rows');
+    }
+    game.rowNumber +=1;
+}
+
+
+function generateBoard() {
+    game.createRows();
+    for (var j = 1; j <= game.rowNumber; j++) {
+        for (var i = 1; i <= 100; i++) {
+            setBackgroundColors();
+            var newDiv = $('<div class="box"/>');
+            $('#row-' + j).append(newDiv);
+            $(newDiv).css('background-color', game.colorRandomFunction);
+            $(newDiv).prop('id', j + '-' + i);
+        }
+    }
+    game.checkGameLevel();
+}
+
+// THIS CAN FOR SURE BE SHORTENED AND REFACTORED
+function createBoard(){
+    $('body').prepend('<header>');
+    $('header').prepend('<span id="score-div"></span>', '<span id="time-div"></span>');
+    $('#score-div').text('SCORE : ' + game.score);
+    $('#time-div').text('time remaining : ' + game.time);
+    generateBoard();
+    $('.box').fadeIn(1200, 'swing', function(){
+        // boxes fading in at start
+    });
+    $('.box').on('click', game.boxClick);
+};
+
+// ON CLICK FUNCTIONS
+$('#start').on('click', function(){
+    createBoard();
+    timeCount();
+    $('#start').fadeOut(500, function(){
+        // start button fades out
+    });
+    $('.container').css('display', 'none');
+});
 
 $('.color-button').on('click', function(){
     // turn into chooseColour(color) - green, blue, etc
@@ -143,26 +190,6 @@ function setBackgroundColors() {
     }
 }
 
-function generateBoard(){
-    for (var i = 1; i <= 100; i++) {
-        setBackgroundColors();
-        var $newdiv = $('<div class="box"/>');
-        $('body').append($newdiv);
-        $($newdiv).css('background-color', game.colorRandomFunction);
-        $($newdiv).prop('id',i);
-        game.checkGameLevel();
-    }
-}
-
-// THIS CAN FOR SURE BE SHORTENED AND REFACTORED
-var createBoard = function(){
-    $('body').prepend('<header>');
-    $('header').prepend('<div id="score-div"></div>', '<div id="time-div"></div>');
-    $('#score-div').text('SCORE : ' + game.score);
-    $('#time-div').text('time remaining : ' + game.time);
-    generateBoard();
-};
-
 $('body').keydown(function(e){
     console.log(e.which);
     if(e.which === 27){
@@ -174,60 +201,3 @@ $('body').keydown(function(e){
 // set interval to keep creating colors but hide overflow?
 // check if rgb([i]) is within a range -- ie a specific color?
 
-
-// VARIOUS COLOR GENERATORS
-function randomRGBNumber() {
-    return Math.floor((Math.random() * 150) + 106);
-    // 100 + 156 level 2?
-    // 50 + 206 level 3?
-}
-
-// mid range number to keep colors less dark
-function randomMid(){
-    return Math.floor((Math.random() * 175) + 106);
-}
-
-function randomRGBBlue(){
-    return 'rgb(' + 0 + ', ' + 0 + ', ' + randomRGBNumber() + ')';
-}
-
-function randomRGBRed(){
-    return 'rgb(' + randomRGBNumber() + ', ' + 0 + ', ' + 0 + ')';
-}
-
-function randomRGBGreen(){
-    return 'rgb(' + 0 + ', ' + randomRGBNumber() + ', ' + 0 + ')';
-}
-
-function randomRGBPurple(){
-    return 'rgb(' + randomMid() + ', ' + 0 + ', ' + randomMid() + ')';
-}
-
-function randomRGBTeal(){
-    return 'rgb(' + 0 + ', ' + randomMid() + ', ' + randomMid() + ')';
-}
-
-function randomRGBColor() {
-    return 'rgb(' + randomRGBNumber() + ', ' + randomRGBNumber() + ', ' + randomRGBNumber() + ')';
-}
-//
-// function hexRandomColor() {
-//     var letters = '0123456789ABCDEF';
-//     var color = '#';
-//     for (var i = 0; i < 6; i++ ) {
-//         color += letters[Math.floor(Math.random() * 16)];
-//     }
-//     return color;
-// }
-//
-// var colorArray = ['red', 'green', 'blue', 'pink'];
-// pickRandomArrayColor = function(){
-//     for(var i = 0; i < colorArray.length; i++){
-//         var color = [];
-//         color.push(colorArray[Math.round(Math.random() * colorArray.length)]);
-//         console.log(color);
-//     }
-// };
-// d3.select("body").append("p").text("New paragraph!");
-// var dataset = [ 5, 10, 15, 20, 25 ];
-// d3.select("body").selectAll("p").data(dataset).enter().append("p").text("New paragraph!");

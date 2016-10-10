@@ -56,9 +56,9 @@ function boxClick(){
     var clickedColorArray = rgbToArray($('#' + game.id).css('backgroundColor')); // creates array for clicked color
     var nextBoxColorArray = rgbToArray(nextBox.css('backgroundColor')); // creates array for next color
     var previousBoxColorArray = rgbToArray(previousBox.css('backgroundColor')); // creates array for previous color
-    // console.log('this is the clicked box id ' + id); // clicked box ID
-    // console.log('this is the next box id ' + nextBox[0].id); // next box ID
-    // console.log('this is the previous box id ' + previousBox[0].id); // previous box ID
+    console.log('this is the clicked box id ' + game.id); // clicked box ID
+    console.log('this is the next box id ' + nextBox.prop('id')); // next box ID
+    console.log('this is the previous box id ' + previousBox.prop('id')); // previous box ID
     console.log('clicked box color array ' + clickedColorArray); //rgb array of clicked color
     console.log('next box color array ' + nextBoxColorArray); //rgb array of next color
     console.log('previous box color array ' + previousBoxColorArray); //rgb array of prev color
@@ -96,7 +96,6 @@ function boxClick(){
     console.log('you probably tried to add the purple button back in and there is no if else statement for that yet');
 }
     compareColors();
-
     $('#'+ game.id).fadeOut(500, function(){
     this.remove();
     // boxes fading out on click

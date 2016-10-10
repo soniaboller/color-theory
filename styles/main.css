@@ -5,7 +5,7 @@ body {
     font-size: 16px;
     margin: 0;
     padding: 0;
-    overflow: hidden;
+    /*overflow: hidden;*/
 }
 
 header {
@@ -34,7 +34,7 @@ header {
     text-align: right;
 }
 
-div {
+div, span {
     display: inline;
 }
 
@@ -44,32 +44,55 @@ div {
     display: block;
     margin: 0 auto;
     text-align: center;
+}
 
+.rows{
+    width: 100%;
+    float: left;
+    overflow: hidden;
+    position: relative;
+    /*margin-bottom: 0.03125rem;*/
+}
+
+#row-2 {
+    z-index: 22;
+}
+
+#row-3 {
+    z-index: 44;
+}
+
+#row-4 {
+    z-index: 66;
 }
 
 .box {
     width: 8%;
     /* height: 23.75% (for quarters) 32% (for thirds) 48.25% (for halves)*/
-    margin: 0.125rem 0.125rem;
+    height: 98.5%;
+    margin: 0.125rem;
     float: left;
     display: none;
     color: #fff;
     font-family: Raleway, Helvetica, sans-serif;
     text-align: center;
-    line-height: 1000%;
     position: relative;
 }
 
+
 .levelOne {
     height: 48.25%;
+    line-height: 2000%;
 }
 
 .levelTwo {
     height: 32%;
+    line-height: 1500%;
 }
 
 .levelThree {
     height: 23.75%;
+    line-height: 1000%;
 }
 
 .box:hover {
