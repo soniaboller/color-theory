@@ -49,6 +49,8 @@ div, span {
     width: 100%;
     float: left;
     overflow: hidden;
+    position: relative;
+    /*flex-wrap: nowrap;*/
     /*margin-bottom: 0.03125rem;*/
 }
 
@@ -74,6 +76,7 @@ div, span {
     color: #fff;
     font-family: Raleway, Helvetica, sans-serif;
     text-align: center;
+    position: relative;
 }
 
 
