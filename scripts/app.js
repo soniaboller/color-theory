@@ -21,7 +21,7 @@ $(document).ready(function(){
 
 var game = game || {};
 game.score = 0;
-game.time = 1000;
+game.time = 5;
 game.level = 1;
 game.colorButtonChoice = '';
 game.rowNumber = 2;
@@ -76,7 +76,7 @@ function nextLevel(){
     game.clearBoard();
     game.createBoard();
     $('.box').css('display', 'inline');
-    game.time = 1000;
+    game.time = 5;
     game.timeCount();
 }
 
@@ -96,9 +96,8 @@ function checkGameLevel (){
     }
     else{
         alert('you win!');
-        location.reload();
-    }
 
+    }
 }
 
 function checkScore () {
@@ -112,7 +111,6 @@ function checkScore () {
     }
 }
 
-
 function createRows() {
     for (var i = 1; i <= game.rowNumber; i++) {
         var newRow = $('<div>');
@@ -121,7 +119,6 @@ function createRows() {
     }
     game.rowNumber +=1;
 }
-
 
 function generateBoard() {
     game.createRows();

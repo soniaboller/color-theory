@@ -1,6 +1,5 @@
 body {
     background-color: #000;
-    height: 99vh;
     width: 100vw;
     font-size: 16px;
     margin: 0;
@@ -50,7 +49,6 @@ div, span {
     width: 100%;
     float: left;
     overflow: hidden;
-    position: relative;
     /*margin-bottom: 0.03125rem;*/
 }
 
@@ -69,14 +67,13 @@ div, span {
 .box {
     width: 8%;
     /* height: 23.75% (for quarters) 32% (for thirds) 48.25% (for halves)*/
-    height: 98.5%;
-    margin: 0.125rem;
+    height: 98.9%;
+    margin: 2px;
     float: left;
     display: none;
     color: #fff;
     font-family: Raleway, Helvetica, sans-serif;
     text-align: center;
-    position: relative;
 }
 
 
@@ -97,6 +94,7 @@ div, span {
 
 .box:hover {
     outline: 1px solid rgba(255, 255, 255, 0.6);
+    outline-offset: -1.5px;
 }
 
 
