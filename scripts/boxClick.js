@@ -6,6 +6,8 @@
 // }
 var game = game || {};
 game.boxClick = boxClick;
+game.newBox = 13;
+
 
 
 // game.determineClickedColor = determineClickedColor;
@@ -51,6 +53,8 @@ game.boxClick = boxClick;
 
 function boxClick(){
     game.id = this.id; // id of box clicked
+    var rowValue = $(this).parent().prop('id');
+    console.log(rowValue);
     var nextBox = $('#' + game.id).next();
     var previousBox = $('#' + game.id).prev();
     var clickedColorArray = rgbToArray($('#' + game.id).css('backgroundColor')); // creates array for clicked color
@@ -98,8 +102,23 @@ function boxClick(){
     compareColors();
     $('#'+ game.id).fadeOut(500, function(){
     this.remove();
+
+        //creates new box that appends to the row it was removed from
+    var rowToAppendTo = rowValue.split('');
+    console.log(rowToAppendTo);
+    var newDiv = $('<div class="box"/>');
+    $('#'+ rowValue).append(newDiv);
+    $(newDiv).css('background-color', game.colorRandomFunction);
+    $(newDiv).css('display', 'inline');
+    $(newDiv).prop('id', rowToAppendTo[4] + '-' + game.newBox);
+    game.newBox++;
     // boxes fading out on click
 })
+
+}
+
+function generateBox(){
+
 
 }
 

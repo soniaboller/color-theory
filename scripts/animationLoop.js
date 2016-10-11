@@ -7,7 +7,7 @@ game.shiftIntervalCounter = 1;
 var intervalId;
 
 function animateBoxes(){
-    intervalId = setInterval(animationLoop, (game.time * 200));
+    intervalId = setInterval(animationLoop, 4000);
 }
 
 function stopAnimateBoxes(){
@@ -23,4 +23,5 @@ function animationLoop(){
         }
     }
     game.shiftIntervalCounter++;
+    console.log('animation loop counter: '+ game.shiftIntervalCounter);
 }

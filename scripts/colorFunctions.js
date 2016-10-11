@@ -1,3 +1,7 @@
+var game = game || {};
+game.randomColorMultiplier = 150;
+game.randomColorAdder = 106;
+
 function rgbToArray(colorToConvert){
     colorArray = [];
     var color = colorToConvert.substring(3).replace('(', '').replace(')', ''); // cuts off the rgb part of color tag
@@ -6,7 +10,7 @@ function rgbToArray(colorToConvert){
 }
 
 function randomRGBNumber() {
-    return Math.floor((Math.random() * 150) + 106);
+    return Math.floor((Math.random() * game.randomColorMultiplier) + game.randomColorAdder);
     // 100 + 156 level 2?
     // 50 + 206 level 3?
 }

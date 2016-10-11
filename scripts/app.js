@@ -1,12 +1,3 @@
-// timer hits zero end level
-// if time hits zero and score is below x number you lose
-// if timer hits zero and score is above number or move on
-// before game starts show color to compare darker or lighter -- maybe keep this at the top of the screen? or somewhere in the screen?
-// as the game progresses make the color range smaller so it gets harder
-
-// create a div to append boxes to rather than the body -- multiple divs to allow for horizontal sliding??
-
-// maybe do purple and other mixed colors if time permits?
 
 // make one giant object and attach the functions to said game object (namespace)
 
@@ -15,16 +6,20 @@
 // check level
 // reset game to go to next level -- clear out time, maybe keep score?
 
+// directions & help
+
+// smashing magazine -- local storage
+
 $(document).ready(function(){
     console.log("linked");
 });
 
 var game = game || {};
 game.score = 0;
-game.time = 25;
+game.time = 10;
 game.level = 1;
 game.colorButtonChoice = '';
-game.rowNumber = 2;
+game.rowNumber = 4;
 game.addScore = addScore;
 game.subtractScore = subtractScore;
 game.generateBoard = generateBoard;
@@ -35,6 +30,10 @@ game.nextLevel = nextLevel;
 game.createRows = createRows;
 game.clearBoard = clearBoard;
 game.createBoard = createBoard;
+// game.displayLevel = displayLevel;
+game.delayGenerateBoard = delayGenerateBoard;
+// game.removeLevel = removeLevel;
+// game.delayRemoveLevel = delayRemoveLevel;
 // game.gameOver = gameOver;
 
 // jQuery selectors
@@ -58,6 +57,8 @@ function timeCount(){
     function countDown(){
         game.time--;
         if(game.time == 0){
+            $('.box').fadeOut(500);
+            $('header').fadeOut(500);
             game.level +=1;
             game.checkScore();
             clearInterval(timer);
@@ -67,33 +68,86 @@ function timeCount(){
     }
 }
 
-function clearBoard(){
-    $('div').remove();
-    $('header').remove();
+var timeoutID;
+
+function delayGenerateBoard() {
+    timeoutID = setTimeout(game.generateBoard, 1500);
 }
 
+// function removeLevel(){
+//     $('p').remove();
+//     $('.box').css('display', 'inline');
+// }
+//
+// function delayRemoveLevel(){
+//     timeoutID = setTimeout(game.removeLevel, 5000);
+// }
+//
+function clearBoard(){
+    $('.rows').remove();
+    $('span').fadeOut(500);
+    $('header').fadeOut(500);
+    // displayLevel();
+}
+//
+// function displayLevel(){
+//     $('#next-level').text('LEVEL : ' + game.level);
+//     $('#next-level').fadeIn(500);
+// }
+//
+// function displayBoard (){
+//     $('#next-level').fadeOut(500);
+//     $('.box').fadeIn(1200);
+//     $('div').fadeIn(500);
+//     $('header').fadeIn(500);
+// }
+
 function nextLevel(){
-    game.clearBoard();
-    game.createBoard();
-    $('.box').css('display', 'inline');
-    game.time = 25;
+    game.randomColorMultiplier -= 50;
+    game.randomColorAdder += 50;
     game.shiftIntervalCounter = 1;
+    game.clearBoard();
+    game.generateBoard();
+    // game.delayGenerateBoard();
+    // game.delayRemoveLevel();
+    game.time = 25;
     game.timeCount();
+    // displayBoard().delay(1000);
+    console.log('level '+ game.level + ', color adder: ' + game.randomColorAdder + ', color multiplier: ' + game.randomColorMultiplier);
 }
 
 function checkGameLevel (){
     if (game.level === 1){
         // $('.box').addClass('levelOne');
-        $('.rows').addClass('levelOne');
+        // $('.rows').addClass('levelOne');
+
+
+        // testing with just level 1 class
+        // $('.rows').addClass('levelOne');
+
+        //testing with just level 3
+        $('.rows').addClass('levelThree');
     }
     else if (game.level === 2){
         // $('.box').removeClass('levelOne').addClass('levelTwo');
-        $('.rows').removeClass('levelOne').addClass('levelTwo');
+        // $('.rows').removeClass('levelOne').addClass('levelTwo');
+
+        //testing with just level 1 class
+        // $('.rows').addClass('levelOne');
+
+        //testing with just level 3
+        $('.rows').addClass('levelThree');
     }
     else if (game.level === 3){
         // $('.box').removeClass('levelTwo').addClass('levelThree');
-        $('.rows').removeClass('levelTwo').addClass('levelThree');
+        // $('.rows').removeClass('levelTwo').addClass('levelThree');
 
+
+        // testing with just level 1 class
+        // $('.rows').addClass('levelOne');
+
+        //testing with just level 3
+        $('.rows').addClass('levelThree');
     }
     else if (game.level === 4){
         console.log('last level')
@@ -103,7 +157,7 @@ function checkGameLevel (){
 function checkScore () {
     if (game.score < 1) {
         // game.gameOver();
-        alert('game over');
+        // alert('game over');
         // location.reload()
     }
     else {
@@ -117,14 +171,12 @@ function createRows() {
         $('body').append(newRow);
         $(newRow).prop('id', 'row-' + i).addClass('rows');
     }
-    game.rowNumber +=1;
-    game.animateBoxes();
 }
 
 function generateBoard() {
     game.createRows();
     for (var j = 1; j <= game.rowNumber; j++) {
-        for (var i = 1; i <= 100; i++) {
+        for (var i = 1; i <= 12; i++) {
             setBackgroundColors();
             var newDiv = $('<div class="box"/>');
             $('#row-' + j).append(newDiv);
@@ -135,16 +187,13 @@ function generateBoard() {
     game.checkGameLevel();
 }
 
-// THIS CAN FOR SURE BE SHORTENED AND REFACTORED
 function createBoard(){
     $('body').prepend('<header>');
     $('header').prepend('<span id="score-div"></span>', '<span id="time-div"></span>');
     $('#score-div').text('SCORE : ' + game.score);
     $('#time-div').text('time remaining : ' + game.time);
     generateBoard();
-    $('.box').fadeIn(1200, 'swing', function(){
-        // boxes fading in at start
-    });
+    $('.box').fadeIn(1200, 'swing');
     $('.box').on('click', game.boxClick);
 };
 
@@ -155,7 +204,8 @@ $('#start').on('click', function(){
     $('#start').fadeOut(500, function(){
         // start button fades out
     });
-    $('.container').css('display', 'none');
+    $('.container').addClass('hidden');
+    // game.animateBoxes();
 });
 
 $('.color-button').on('click', function(){
