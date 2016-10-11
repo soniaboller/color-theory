@@ -30,8 +30,9 @@ game.nextLevel = nextLevel;
 game.createRows = createRows;
 game.clearBoard = clearBoard;
 game.createBoard = createBoard;
+game.delayCreateBoard = delayCreateBoard;
 // game.displayLevel = displayLevel;
-game.delayGenerateBoard = delayGenerateBoard;
+// game.delayGenerateBoard = delayGenerateBoard;
 // game.removeLevel = removeLevel;
 // game.delayRemoveLevel = delayRemoveLevel;
 // game.gameOver = gameOver;
@@ -68,48 +69,30 @@ function timeCount(){
     }
 }
 
+function displayLevel(){
+    $('#next-level').text('LEVEL : ' + game.level);
+    $('#next-level').fadeIn(500).delay(1000).fadeOut(500);
+}
+
 var timeoutID;
 
-function delayGenerateBoard() {
-    timeoutID = setTimeout(game.generateBoard, 1500);
+function delayCreateBoard() {
+    timeoutID = setTimeout(game.createBoard, 2000);
 }
 
-// function removeLevel(){
-//     $('p').remove();
-//     $('.box').css('display', 'inline');
-// }
-//
-// function delayRemoveLevel(){
-//     timeoutID = setTimeout(game.removeLevel, 5000);
-// }
-//
 function clearBoard(){
     $('.rows').remove();
-    $('span').fadeOut(500);
-    $('header').fadeOut(500);
-    // displayLevel();
+    $('header').remove();
 }
-//
-// function displayLevel(){
-//     $('#next-level').text('LEVEL : ' + game.level);
-//     $('#next-level').fadeIn(500);
-// }
-//
-// function displayBoard (){
-//     $('#next-level').fadeOut(500);
-//     $('.box').fadeIn(1200);
-//     $('div').fadeIn(500);
-//     $('header').fadeIn(500);
-// }
+
 
 function nextLevel(){
     game.randomColorMultiplier -= 50;
     game.randomColorAdder += 50;
     game.shiftIntervalCounter = 1;
     game.clearBoard();
-    game.generateBoard();
-    // game.delayGenerateBoard();
-    // game.delayRemoveLevel();
+    displayLevel();
+    game.delayCreateBoard();
     game.time = 25;
     game.timeCount();
     // displayBoard().delay(1000);
