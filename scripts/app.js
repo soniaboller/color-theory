@@ -16,7 +16,7 @@ $(document).ready(function(){
 
 var game = game || {};
 game.score = 0;
-game.time = 10;
+game.time = 100;
 game.level = 1;
 game.colorButtonChoice = '';
 game.rowNumber = 4;
@@ -30,12 +30,9 @@ game.nextLevel = nextLevel;
 game.createRows = createRows;
 game.clearBoard = clearBoard;
 game.createBoard = createBoard;
-game.delayCreateBoard = delayCreateBoard;
-// game.displayLevel = displayLevel;
-// game.delayGenerateBoard = delayGenerateBoard;
-// game.removeLevel = removeLevel;
-// game.delayRemoveLevel = delayRemoveLevel;
-// game.gameOver = gameOver;
+game.resetBoard = resetBoard;
+game.delayResetBoard = delayResetBoard;
+game.displayLevel = displayLevel;
 
 // jQuery selectors
     // try to declare selector variables??
@@ -70,14 +67,20 @@ function timeCount(){
 }
 
 function displayLevel(){
-    $('#next-level').text('LEVEL : ' + game.level);
-    $('#next-level').fadeIn(500).delay(1000).fadeOut(500);
+    $('p').text(' LEVEL : ' + game.level);
+    $('#next-level').fadeIn(500).delay(5000).fadeOut(500);
 }
 
 var timeoutID;
 
-function delayCreateBoard() {
-    timeoutID = setTimeout(game.createBoard, 2000);
+function delayResetBoard() {
+    timeoutID = setTimeout(game.resetBoard, 6000);
+}
+
+function resetBoard(){
+    game.createBoard();
+    game.time = 25;
+    game.timeCount();
 }
 
 function clearBoard(){
@@ -91,11 +94,8 @@ function nextLevel(){
     game.randomColorAdder += 50;
     game.shiftIntervalCounter = 1;
     game.clearBoard();
-    displayLevel();
-    game.delayCreateBoard();
-    game.time = 25;
-    game.timeCount();
-    // displayBoard().delay(1000);
+    game.displayLevel();
+    game.delayResetBoard();
     console.log('level '+ game.level + ', color adder: ' + game.randomColorAdder + ', color multiplier: ' + game.randomColorMultiplier);
 }
 
@@ -188,7 +188,7 @@ $('#start').on('click', function(){
         // start button fades out
     });
     $('.container').addClass('hidden');
-    // game.animateBoxes();
+    game.animateBoxes();
 });
 
 $('.color-button').on('click', function(){
