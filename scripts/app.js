@@ -22,6 +22,7 @@ game.time = 100;
 game.level = 1;
 game.colorButtonChoice = '';
 game.rowNumber = 4;
+// game.allowBoxClick = allowBoxClick;
 game.addScore = addScore;
 game.subtractScore = subtractScore;
 game.generateBoard = generateBoard;
@@ -51,6 +52,18 @@ function subtractScore(){
     game.score -= 3;
     $('#score-div').html('SCORE : ' + game.score);
 }
+
+// var boxClickInternval;
+//
+// function boxClickInterval() {
+//     boxClickInternval = setInterval(game.allowBoxClick, 1000);
+// }
+//
+// function allowBoxClick(){
+//     $('.box').on('click', game.boxClick);
+// }
+//
+// boxClickInterval();
 
 function timeCount(){
     var timer = setInterval(countDown,1000); // counts down seconds
@@ -189,7 +202,7 @@ $('#start').on('click', function(){
         // start button fades out
     });
     $('.container').addClass('hidden');
-    // game.animateBoxes();
+    game.animateBoxes();
 });
 
 $('.color-button').on('click', function(){

@@ -9,7 +9,6 @@ game.boxClick = boxClick;
 game.newBox = 13;
 
 
-
 // game.determineClickedColor = determineClickedColor;
 // game.determineNextColor = determineNextColor;
 // game.determinePreviousColor = determinePreviousColor;
@@ -98,7 +97,7 @@ function boxClick(){
     }
     else {
     console.log('you probably tried to add the purple button back in and there is no if else statement for that yet');
-}
+    }
     compareColors();
     // boxes fading out on click
     $('#'+ game.id).fadeOut(500, function(){
@@ -113,6 +112,11 @@ function boxClick(){
     $(newDiv).css('background-color', game.colorRandomFunction);
     $(newDiv).css('display', 'inline');
     $(newDiv).prop('id', rowToAppendTo[4] + '-' + game.newBox);
+    $(newDiv).on('click', game.boxClick);
+    // $(newDiv).on('click', function() {
+    //     var base = this;
+    //     game.boxClick(base);
+    // });
     game.newBox++;
 
     // HELP HOW DO I MAKE THESE CLICKABLE??

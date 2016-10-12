@@ -35,16 +35,16 @@ function stopAnimateBoxes(){
     clearInterval(intervalId);
 }
 
-var j = 0;
+var j = 1;
 
 var timeoutId;
 
 function removeFirstRowBox(){
     timeoutId = setTimeout(function(){
-        j++;
         if (j <= game.rowNumber){
             createBox();
             removeFirstRowBox();
+            j++;
         }
     }, 1000);
     game.newBox++;
@@ -61,6 +61,7 @@ function createBox(){
     $(newDiv).css('background-color', game.colorRandomFunction);
     $(newDiv).css('display', 'inline');
     $(newDiv).prop('id', j + '-' + game.newBox);
+    $(newDiv).on('click', game.boxClick);
 }
 
 // function removeFirstRowBox(){
