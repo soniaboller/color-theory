@@ -1,3 +1,5 @@
+// box click not working for regenerated boxes and can't run box click funciton within box click function and somehow declaring it as a global method doens't seem to work?
+
 
 // make one giant object and attach the functions to said game object (namespace)
 
@@ -71,10 +73,10 @@ function displayLevel(){
     $('#next-level').fadeIn(500).delay(5000).fadeOut(500);
 }
 
-var timeoutID;
+var boardTimeoutId;
 
 function delayResetBoard() {
-    timeoutID = setTimeout(game.resetBoard, 6000);
+    boardTimeoutId = setTimeout(game.resetBoard, 6000);
 }
 
 function resetBoard(){
@@ -87,7 +89,6 @@ function clearBoard(){
     $('.rows').remove();
     $('header').remove();
 }
-
 
 function nextLevel(){
     game.randomColorMultiplier -= 50;
@@ -147,7 +148,6 @@ function checkScore () {
         game.nextLevel();
     }
 }
-
 function createRows() {
     for (var i = 1; i <= game.rowNumber; i++) {
         var newRow = $('<div>');
@@ -170,6 +170,7 @@ function generateBoard() {
     game.checkGameLevel();
 }
 
+
 function createBoard(){
     $('body').prepend('<header>');
     $('header').prepend('<span id="score-div"></span>', '<span id="time-div"></span>');
@@ -178,7 +179,7 @@ function createBoard(){
     generateBoard();
     $('.box').fadeIn(1200, 'swing');
     $('.box').on('click', game.boxClick);
-};
+}
 
 // ON CLICK FUNCTIONS
 $('#start').on('click', function(){
@@ -188,7 +189,7 @@ $('#start').on('click', function(){
         // start button fades out
     });
     $('.container').addClass('hidden');
-    game.animateBoxes();
+    // game.animateBoxes();
 });
 
 $('.color-button').on('click', function(){
@@ -199,6 +200,7 @@ $('.color-button').on('click', function(){
     console.log(game.colorButtonChoice);
     return game.colorButtonChoice;
 });
+
 
 function setBackgroundColors() {
     if (game.colorButtonChoice === "blue"){

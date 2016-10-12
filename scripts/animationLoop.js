@@ -24,37 +24,39 @@ game.stopAnimateBoxes = stopAnimateBoxes;
 //     $('.box').on('click', game.boxClick);
 // }
 
+
 var intervalId;
 
 function animateBoxes(){
-    intervalId = setInterval(removeFirstRowBox, 12000);
+    intervalId = setInterval(removeFirstRowBox, 5000);
 }
 
 function stopAnimateBoxes(){
     clearInterval(intervalId);
 }
 
-var j = 1;
+var j = 0;
+
+var timeoutId;
 
 function removeFirstRowBox(){
-    setTimeout(function(){
-        createBox();
+    timeoutId = setTimeout(function(){
         j++;
-        if (j < game.rowNumber){
-            removeFirstRowBox();
+        if (j <= game.rowNumber){
             createBox();
+            removeFirstRowBox();
         }
-    }, 3000);
-    $('.box').on('click', game.boxClick);
-    game.newBox++
+    }, 1000);
+    game.newBox++;
 }
 
 function createBox(){
-    var rowSelected = $('.box:first-child')
-    console.log(rowSelected);
-    $(rowSelected[j]).remove();
+    var rowSelected = $('.box:first-child');
+    console.log(rowSelected[j-1]);
+    $(rowSelected[j-1]).remove();
     setBackgroundColors();
     var newDiv = $('<div class="box"/>');
+    console.log ('#row-' + j);
     $('#row-' + j).append(newDiv);
     $(newDiv).css('background-color', game.colorRandomFunction);
     $(newDiv).css('display', 'inline');

@@ -100,10 +100,12 @@ function boxClick(){
     console.log('you probably tried to add the purple button back in and there is no if else statement for that yet');
 }
     compareColors();
+    // boxes fading out on click
     $('#'+ game.id).fadeOut(500, function(){
     this.remove();
 
         //creates new box that appends to the row it was removed from
+    setBackgroundColors();
     var rowToAppendTo = rowValue.split('');
     console.log(rowToAppendTo);
     var newDiv = $('<div class="box"/>');
@@ -112,24 +114,19 @@ function boxClick(){
     $(newDiv).css('display', 'inline');
     $(newDiv).prop('id', rowToAppendTo[4] + '-' + game.newBox);
     game.newBox++;
-    // boxes fading out on click
-})
 
-}
-
-function generateBox(){
-
-
+    // HELP HOW DO I MAKE THESE CLICKABLE??
+});
 }
 
 function compareColors() {
     if(game.clickedColor < game.nextColor && game.clickedColor < game.previousColor){
-        $('#'+ game.id).text('darker');
+        $('#'+ game.id).text('darker +1');
         console.log('darker');
         game.addScore();
     }
     else {
-        $('#'+ game.id).text('lighter');
+        $('#'+ game.id).text('lighter -3');
         console.log('lighter');
         game.subtractScore();
     }
