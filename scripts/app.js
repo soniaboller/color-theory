@@ -18,7 +18,6 @@ game.generateBoard = generateBoard;
 game.timeCount = timeCount;
 game.createRows = createRows;
 game.createBoard = createBoard;
-game.gameOver = gameOver;
 
 // jQuery selectors
     // try to declare selector variables??
@@ -36,23 +35,22 @@ function subtractScore(){
     $('#score-div').html('SCORE : ' + game.score);
 }
 
+var timer;
+
 function timeCount(){
-    var timer = setInterval(countDown,1000); // counts down seconds
+    timer = setInterval(countDown,1000); // counts down seconds
     function countDown(){
         game.time--;
         if(game.time === 0){
             $('.box').velocity("fadeOut", { duration: 1000 });
             $('header').velocity("fadeOut", { duration: 1000 });
+            game.saveScore();
             game.level +=1;
             game.nextLevel();
-            // game.checkScore();
+            game.checkGameOver;
             clearTimeout(timeoutId);
             clearInterval(timer);
             console.log('time zero');
-        }
-        else if (game.time === 0 && game.level === 10){
-            clearInterval(timer);
-            gameOver();
         }
         $('#time-div').html('time remaining : '+ game.time);
     }
@@ -90,11 +88,6 @@ function createBoard(){
     $('.rows').velocity("fadeIn", { duration: 1000 });
     $('.box').on('click', game.boxClick);
     game.removeFirstRowBox();
-}
-
-function gameOver(){
-    $('#body-wrap').addClass('gameOverDialogue');
-    clearTimeout(timeoutId);
 }
 
 // ON CLICK FUNCTIONS
