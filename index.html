@@ -7,16 +7,23 @@
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet">
     </head>
     <body>
-        <div class="container">
-            <button class="color-button" id="blue"> BLUE </button>
-            <button class="color-button"  id="red"> RED </button>
-            <!--<button class="color-button"  id="purple"> PURPLE </button>-->
-            <!--<button class="color-button"  id="teal"> TEAL </button>-->
-            <button class="color-button"  id="green"> GREEN </button>
-            <button id="start"> BEGIN </button>
-        </div>
-        <div id="next-level">
-            <p> LEVEL : </p>
+        <div id="body-wrap">
+            <div class="container">
+                <button class="color-button" id="blue"> BLUE </button>
+                <button class="color-button"  id="red"> RED </button>
+                <!--<button class="color-button"  id="purple"> PURPLE </button>-->
+                <!--<button class="color-button"  id="teal"> TEAL </button>-->
+                <button class="color-button"  id="green"> GREEN </button>
+                <button id="start"> BEGIN </button>
+            </div>
+            <div id ="page-wrap">
+                <div id="next-level">
+                    <p> LEVEL : </p>
+                </div>
+            </div>
+            <div id="modal">
+                <p> GAME OVER </p>
+            </div>
         </div>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.js"></script>
     <script type="text/javascript" src="scripts/d3/d3.js"></script>

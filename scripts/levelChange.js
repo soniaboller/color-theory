@@ -3,6 +3,9 @@ game.nextLevel = nextLevel;
 game.delayResetBoard = delayResetBoard;
 game.delayClearBoard = delayClearBoard;
 game.delayDisplayLevel = delayDisplayLevel;
+game.checkScore = checkScore;
+game.checkGameLevel = checkGameLevel;
+game.numberReset = numberReset;
 
 var boardTimeoutId;
 
@@ -36,8 +39,70 @@ function nextLevel(){
     game.randomColorAdder += 50;
     game.shiftIntervalCounter = 1;
     game.time = 10;
+    game.numberReset();
     game.delayClearBoard();
     game.delayDisplayLevel();
     game.delayResetBoard();
     console.log('level '+ game.level + ', color adder: ' + game.randomColorAdder + ', color multiplier: ' + game.randomColorMultiplier);
+}
+
+function checkGameLevel (){
+    if (game.level < 4){
+        // $('.box').addClass('levelOne');
+        $('.rows').addClass('levelOne');
+
+
+        // testing with just level 1 class
+        // $('.rows').addClass('levelOne');
+
+        //testing with just level 3
+        // $('.rows').addClass('levelThree');
+    }
+    else if (game.level >= 4 && game.level < 7){
+
+        // $('.box').removeClass('levelOne').addClass('levelTwo');
+        $('.rows').removeClass('levelOne').addClass('levelTwo');
+
+        //testing with just level 1 class
+        // $('.rows').addClass('levelOne');
+
+        //testing with just level 3
+        // $('.rows').addClass('levelThree');
+    }
+    else if (game.level >= 7){
+        // $('.box').removeClass('levelTwo').addClass('levelThree');
+        $('.rows').removeClass('levelTwo').addClass('levelThree');
+
+
+        // testing with just level 1 class
+        // $('.rows').addClass('levelOne');
+
+        //testing with just level 3
+        // $('.rows').addClass('levelThree');
+    }
+    else {
+        console.log('past level')
+    }
+}
+
+function numberReset(){
+    if (game.level === 4){
+        game.rowNumber = 3;
+        game.randomColorMultiplier = 150;
+        game.randomColorAdder = 106;
+    }
+    else if (game.level === 7){
+        game.rowNumber = 4;
+        game.randomColorMultiplier = 150;
+        game.randomColorAdder = 106;
+    }
+}
+
+function checkScore () {
+    if (game.score < 1) {
+        game.gameOver();
+    }
+    else {
+        game.nextLevel();
+    }
 }

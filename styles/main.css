@@ -1,3 +1,7 @@
+p, body, header {
+    margin: 0;
+}
+
 body {
     background-color: #000;
     width: 100vw;
@@ -40,11 +44,9 @@ header {
     font-family: Raleway, Helvetica, sans-serif;
     text-align: center;
     display: none;
-}
-
-p {
     margin-top: 23%;
 }
+
 
 div, span {
     display: inline;
@@ -177,3 +179,53 @@ button:focus {
     outline: 0;
 }
 
+#modal {
+    background: black;
+
+    position: fixed;
+    width: 50%;
+    top: 25%;
+    left: 25%;
+
+    /* Embiggen */
+    transform: scale(1.5); /* prefix me */
+
+    /* Hidden */
+    opacity: 0;
+    pointer-events: none;
+}
+
+#modal p {
+    color: #696969;
+    text-align: center;
+    padding: 15%;
+    font-size: 3rem;
+    font-family: Raleway, Helvetica, sans-serif;
+}
+
+.gameOverDialogue #page-wrap {
+
+    /* Blur and de-color */
+    -webkit-filter: blur(5px) grayscale(50%);
+
+    /* Recede */
+    -webkit-transform: scale(0.9);
+
+}
+
+.gameOverDialogue #modal {
+
+    /* Regular size and visible */
+    transform: scale(1); /* prefix me */
+    opacity: 1;
+
+    /* Clickable */
+    pointer-events: auto;
+
+}
+
+#page-wrap, #modal {
+
+    transition: all 0.4s ease; /* prefix me */
+
+}

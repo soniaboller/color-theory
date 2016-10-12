@@ -15,11 +15,10 @@ game.rowNumber = 2;
 game.addScore = addScore;
 game.subtractScore = subtractScore;
 game.generateBoard = generateBoard;
-game.checkScore = checkScore;
 game.timeCount = timeCount;
-game.checkGameLevel = checkGameLevel;
 game.createRows = createRows;
 game.createBoard = createBoard;
+game.gameOver = gameOver;
 
 // jQuery selectors
     // try to declare selector variables??
@@ -41,78 +40,29 @@ function timeCount(){
     var timer = setInterval(countDown,1000); // counts down seconds
     function countDown(){
         game.time--;
-        if(game.time == 0){
+        if(game.time === 0){
             $('.box').velocity("fadeOut", { duration: 1000 });
             $('header').velocity("fadeOut", { duration: 1000 });
             game.level +=1;
-            game.checkScore();
+            game.nextLevel();
+            // game.checkScore();
             clearTimeout(timeoutId);
             clearInterval(timer);
             console.log('time zero');
+        }
+        else if (game.time === 0 && game.level === 10){
+            clearInterval(timer);
+            gameOver();
         }
         $('#time-div').html('time remaining : '+ game.time);
     }
 }
 
-function checkGameLevel (){
-    if (game.level < 4){
-        game.rowNumber = 2;
-        // $('.box').addClass('levelOne');
-        $('.rows').addClass('levelOne');
-
-
-        // testing with just level 1 class
-        // $('.rows').addClass('levelOne');
-
-        //testing with just level 3
-        // $('.rows').addClass('levelThree');
-    }
-    else if (game.level >= 4 && game.level < 7){
-        game.rowNumber = 3;
-        game.randomColorMultiplier = 150;
-        game.randomColorAdder = 106;
-        // $('.box').removeClass('levelOne').addClass('levelTwo');
-        $('.rows').removeClass('levelOne').addClass('levelTwo');
-
-        //testing with just level 1 class
-        // $('.rows').addClass('levelOne');
-
-        //testing with just level 3
-        // $('.rows').addClass('levelThree');
-    }
-    else if (game.level >= 7){
-        game.rowNumber = 4;
-        game.randomColorMultiplier = 150;
-        game.randomColorAdder = 106;
-        // $('.box').removeClass('levelTwo').addClass('levelThree');
-        $('.rows').removeClass('levelTwo').addClass('levelThree');
-
-
-        // testing with just level 1 class
-        // $('.rows').addClass('levelOne');
-
-        //testing with just level 3
-        // $('.rows').addClass('levelThree');
-    }
-    else if (game.level === 4){
-        console.log('last level')
-    }
-}
-
-function checkScore () {
-    if (game.score < 0) {
-        // game.gameOver();
-        // alert('game over');
-        // location.reload()
-    }
-    else {
-        game.nextLevel();
-    }
-}
 function createRows() {
+    game.numberReset();
     for (var i = 1; i <= game.rowNumber; i++) {
         var newRow = $('<div>');
-        $('body').append(newRow);
+        $('#page-wrap').append(newRow);
         $(newRow).prop('id', 'row-' + i).addClass('rows');
     }
     game.checkGameLevel();
@@ -132,7 +82,7 @@ function generateBoard() {
 }
 
 function createBoard(){
-    $('body').prepend('<header>');
+    $('#page-wrap').prepend('<header>');
     $('header').prepend('<span id="score-div"></span>', '<span id="time-div"></span>');
     $('#score-div').text('SCORE : ' + game.score);
     $('#time-div').text('time remaining : ' + game.time);
@@ -140,6 +90,11 @@ function createBoard(){
     $('.rows').velocity("fadeIn", { duration: 1000 });
     $('.box').on('click', game.boxClick);
     game.removeFirstRowBox();
+}
+
+function gameOver(){
+    $('#body-wrap').addClass('gameOverDialogue');
+    clearTimeout(timeoutId);
 }
 
 // ON CLICK FUNCTIONS
@@ -176,13 +131,23 @@ function setBackgroundColors() {
         game.colorRandomFunction = randomRGBGreen();
     }
     else{
-
     }
+}
+
+var reloadTimeoutId;
+
+function delayGameOverReload(){
+    reloadTimeoutId = setTimeout(function(){
+        location.reload()
+    }, 500);
 }
 
 $('body').keydown(function(e){
     console.log(e.which);
-    if(e.which === 27){
-        location.reload();
+    var bodyClass = $('#body-wrap').prop('class');
+    console.log(bodyClass);
+    if(e.which === 27 && bodyClass === 'gameOverDialogue'){
+        $('#body-wrap').removeClass('gameOverDialogue');
+        delayGameOverReload();
     }
 });
