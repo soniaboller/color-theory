@@ -2,27 +2,8 @@ var game = game || {};
 // game.animationLoop = animationLoop;
 game.animateBoxes = animateBoxes;
 game.stopAnimateBoxes = stopAnimateBoxes;
+game.removeFirstRowBox = removeFirstRowBox;
 // game.shiftIntervalCounter = 1;
-// game.animateRowOne = animateRowOne;
-// game.animateRowTwo = animateRowTwo;
-// game.animateRowThree = animateRowThree;
-// game.animateRowFour = animateRowFour;
-//
-// var intervalIdRowOne;
-// var intervalIdRowTwo;
-// var intervalIdRowThree;
-// var intervalIdRowFour;
-//
-// function animateRowOne(){
-//     $('#row-1:first-child').remove();
-//     setBackgroundColors();
-//     var newDiv = $('<div class="box"/>');
-//     $('#row-1').append(newDiv);
-//     $(newDiv).css('background-color', game.colorRandomFunction);
-//     $(newDiv).css('display', 'inline');
-//     $(newDiv).prop('id', j + '-' + game.newBox);
-//     $('.box').on('click', game.boxClick);
-// }
 
 
 var intervalId;
@@ -35,16 +16,27 @@ function stopAnimateBoxes(){
     clearInterval(intervalId);
 }
 
-var j = 1;
+var j = 1, countup = true;
 
 var timeoutId;
 
 function removeFirstRowBox(){
     timeoutId = setTimeout(function(){
-        if (j <= game.rowNumber){
+        if (countup){
             createBox();
             removeFirstRowBox();
             j++;
+            if (j >= game.rowNumber){
+                countup = false;
+            }
+        }
+        else {
+            createBox();
+            removeFirstRowBox();
+            j--;
+            if (j <= 1){
+                countup = true
+            }
         }
     }, 1000);
     game.newBox++;

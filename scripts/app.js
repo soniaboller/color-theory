@@ -18,7 +18,7 @@ $(document).ready(function(){
 
 var game = game || {};
 game.score = 0;
-game.time = 100;
+game.time = 10;
 game.level = 1;
 game.colorButtonChoice = '';
 game.rowNumber = 4;
@@ -31,11 +31,10 @@ game.timeCount = timeCount;
 game.checkGameLevel = checkGameLevel;
 game.nextLevel = nextLevel;
 game.createRows = createRows;
-game.clearBoard = clearBoard;
 game.createBoard = createBoard;
-game.resetBoard = resetBoard;
 game.delayResetBoard = delayResetBoard;
-game.displayLevel = displayLevel;
+game.delayClearBoard = delayClearBoard;
+game.delayDisplayLevel = delayDisplayLevel;
 
 // jQuery selectors
     // try to declare selector variables??
@@ -53,27 +52,16 @@ function subtractScore(){
     $('#score-div').html('SCORE : ' + game.score);
 }
 
-// var boxClickInternval;
-//
-// function boxClickInterval() {
-//     boxClickInternval = setInterval(game.allowBoxClick, 1000);
-// }
-//
-// function allowBoxClick(){
-//     $('.box').on('click', game.boxClick);
-// }
-//
-// boxClickInterval();
-
 function timeCount(){
     var timer = setInterval(countDown,1000); // counts down seconds
     function countDown(){
         game.time--;
         if(game.time == 0){
-            $('.box').fadeOut(500);
-            $('header').fadeOut(500);
+            $('.box').velocity("fadeOut", { duration: 1000 });
+            $('header').velocity("fadeOut", { duration: 1000 });
             game.level +=1;
             game.checkScore();
+            clearTimeout(timeoutId);
             clearInterval(timer);
             console.log('time zero');
         }
@@ -81,34 +69,40 @@ function timeCount(){
     }
 }
 
-function displayLevel(){
-    $('p').text(' LEVEL : ' + game.level);
-    $('#next-level').fadeIn(500).delay(5000).fadeOut(500);
-}
-
 var boardTimeoutId;
 
 function delayResetBoard() {
-    boardTimeoutId = setTimeout(game.resetBoard, 6000);
+    boardTimeoutId = setTimeout(resetBoard, 7000);
+    function resetBoard(){
+        game.createBoard();
+        game.timeCount();
+    }
+}
+function delayClearBoard() {
+    boardTimeoutId = setTimeout(clearBoard, 3000);
+    function clearBoard(){
+        $('.rows').remove();
+        $('header').remove();
+    }
 }
 
-function resetBoard(){
-    game.createBoard();
-    game.time = 25;
-    game.timeCount();
-}
-
-function clearBoard(){
-    $('.rows').remove();
-    $('header').remove();
+function delayDisplayLevel() {
+    boardTimeoutId = setTimeout(displayLevel, 1000);
+    function displayLevel(){
+        $('p').text(' LEVEL : ' + game.level);
+        $('#next-level').velocity("fadeIn", { duration: 1000 })
+            .velocity("fadeOut", { delay: 4000, duration: 1000 });
+        // $('#next-level').toggleClass('hidden');
+    }
 }
 
 function nextLevel(){
     game.randomColorMultiplier -= 50;
     game.randomColorAdder += 50;
     game.shiftIntervalCounter = 1;
-    game.clearBoard();
-    game.displayLevel();
+    game.time = 10;
+    game.delayClearBoard();
+    game.delayDisplayLevel();
     game.delayResetBoard();
     console.log('level '+ game.level + ', color adder: ' + game.randomColorAdder + ', color multiplier: ' + game.randomColorMultiplier);
 }
@@ -152,7 +146,7 @@ function checkGameLevel (){
 }
 
 function checkScore () {
-    if (game.score < 1) {
+    if (game.score < 0) {
         // game.gameOver();
         // alert('game over');
         // location.reload()
@@ -183,33 +177,30 @@ function generateBoard() {
     game.checkGameLevel();
 }
 
-
 function createBoard(){
     $('body').prepend('<header>');
     $('header').prepend('<span id="score-div"></span>', '<span id="time-div"></span>');
     $('#score-div').text('SCORE : ' + game.score);
     $('#time-div').text('time remaining : ' + game.time);
     generateBoard();
-    $('.box').fadeIn(1200, 'swing');
+    $('.rows').velocity("fadeIn", { duration: 1000 });
     $('.box').on('click', game.boxClick);
+    game.removeFirstRowBox();
 }
 
 // ON CLICK FUNCTIONS
 $('#start').on('click', function(){
     createBoard();
     timeCount();
-    $('#start').fadeOut(500, function(){
-        // start button fades out
-    });
+    $('#start').velocity("fadeOut", { delay: 750, duration: 500 });
     $('.container').addClass('hidden');
-    game.animateBoxes();
 });
 
 $('.color-button').on('click', function(){
     // turn into chooseColour(color) - green, blue, etc
     game.colorButtonChoice = this.id; // stores color button choice in game
-    $('.color-button').fadeOut(500, function(){}); // color buttons fade out
-    $('#start').delay(500).fadeIn(500, function(){}); // start button fades in
+    $('.color-button').velocity("fadeOut", { duration: 500 }); // color buttons fade out
+    $('#start').velocity("fadeIn", { delay: 500, duration: 500 }); // start button fades in
     console.log(game.colorButtonChoice);
     return game.colorButtonChoice;
 });
