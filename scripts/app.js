@@ -1,13 +1,3 @@
-// box click not working for regenerated boxes and can't run box click funciton within box click function and somehow declaring it as a global method doens't seem to work?
-
-
-// make one giant object and attach the functions to said game object (namespace)
-
-// on click -- name function in click function instead of function(){}
-
-// check level
-// reset game to go to next level -- clear out time, maybe keep score?
-
 // directions & help
 
 // smashing magazine -- local storage
@@ -21,20 +11,15 @@ game.score = 0;
 game.time = 10;
 game.level = 1;
 game.colorButtonChoice = '';
-game.rowNumber = 4;
-// game.allowBoxClick = allowBoxClick;
+game.rowNumber = 2;
 game.addScore = addScore;
 game.subtractScore = subtractScore;
 game.generateBoard = generateBoard;
 game.checkScore = checkScore;
 game.timeCount = timeCount;
 game.checkGameLevel = checkGameLevel;
-game.nextLevel = nextLevel;
 game.createRows = createRows;
 game.createBoard = createBoard;
-game.delayResetBoard = delayResetBoard;
-game.delayClearBoard = delayClearBoard;
-game.delayDisplayLevel = delayDisplayLevel;
 
 // jQuery selectors
     // try to declare selector variables??
@@ -69,76 +54,45 @@ function timeCount(){
     }
 }
 
-var boardTimeoutId;
-
-function delayResetBoard() {
-    boardTimeoutId = setTimeout(resetBoard, 7000);
-    function resetBoard(){
-        game.createBoard();
-        game.timeCount();
-    }
-}
-function delayClearBoard() {
-    boardTimeoutId = setTimeout(clearBoard, 3000);
-    function clearBoard(){
-        $('.rows').remove();
-        $('header').remove();
-    }
-}
-
-function delayDisplayLevel() {
-    boardTimeoutId = setTimeout(displayLevel, 1000);
-    function displayLevel(){
-        $('p').text(' LEVEL : ' + game.level);
-        $('#next-level').velocity("fadeIn", { duration: 1000 })
-            .velocity("fadeOut", { delay: 4000, duration: 1000 });
-        // $('#next-level').toggleClass('hidden');
-    }
-}
-
-function nextLevel(){
-    game.randomColorMultiplier -= 50;
-    game.randomColorAdder += 50;
-    game.shiftIntervalCounter = 1;
-    game.time = 10;
-    game.delayClearBoard();
-    game.delayDisplayLevel();
-    game.delayResetBoard();
-    console.log('level '+ game.level + ', color adder: ' + game.randomColorAdder + ', color multiplier: ' + game.randomColorMultiplier);
-}
-
 function checkGameLevel (){
-    if (game.level === 1){
+    if (game.level < 4){
+        game.rowNumber = 2;
         // $('.box').addClass('levelOne');
-        // $('.rows').addClass('levelOne');
+        $('.rows').addClass('levelOne');
 
 
         // testing with just level 1 class
         // $('.rows').addClass('levelOne');
 
         //testing with just level 3
-        $('.rows').addClass('levelThree');
+        // $('.rows').addClass('levelThree');
     }
-    else if (game.level === 2){
+    else if (game.level >= 4 && game.level < 7){
+        game.rowNumber = 3;
+        game.randomColorMultiplier = 150;
+        game.randomColorAdder = 106;
         // $('.box').removeClass('levelOne').addClass('levelTwo');
-        // $('.rows').removeClass('levelOne').addClass('levelTwo');
+        $('.rows').removeClass('levelOne').addClass('levelTwo');
 
         //testing with just level 1 class
         // $('.rows').addClass('levelOne');
 
         //testing with just level 3
-        $('.rows').addClass('levelThree');
+        // $('.rows').addClass('levelThree');
     }
-    else if (game.level === 3){
+    else if (game.level >= 7){
+        game.rowNumber = 4;
+        game.randomColorMultiplier = 150;
+        game.randomColorAdder = 106;
         // $('.box').removeClass('levelTwo').addClass('levelThree');
-        // $('.rows').removeClass('levelTwo').addClass('levelThree');
+        $('.rows').removeClass('levelTwo').addClass('levelThree');
 
 
         // testing with just level 1 class
         // $('.rows').addClass('levelOne');
 
         //testing with just level 3
-        $('.rows').addClass('levelThree');
+        // $('.rows').addClass('levelThree');
     }
     else if (game.level === 4){
         console.log('last level')
@@ -161,6 +115,7 @@ function createRows() {
         $('body').append(newRow);
         $(newRow).prop('id', 'row-' + i).addClass('rows');
     }
+    game.checkGameLevel();
 }
 
 function generateBoard() {
@@ -174,7 +129,6 @@ function generateBoard() {
             $(newDiv).prop('id', j + '-' + i);
         }
     }
-    game.checkGameLevel();
 }
 
 function createBoard(){
@@ -205,7 +159,6 @@ $('.color-button').on('click', function(){
     return game.colorButtonChoice;
 });
 
-
 function setBackgroundColors() {
     if (game.colorButtonChoice === "blue"){
         game.colorRandomFunction = randomRGBBlue();
@@ -233,8 +186,3 @@ $('body').keydown(function(e){
         location.reload();
     }
 });
-
-
-// set interval to keep creating colors but hide overflow?
-// check if rgb([i]) is within a range -- ie a specific color?
-

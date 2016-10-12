@@ -43,21 +43,3 @@ function randomRGBTeal(){
 function randomRGBColor() {
     return 'rgb(' + randomRGBNumber() + ', ' + randomRGBNumber() + ', ' + randomRGBNumber() + ')';
 }
-
-// function hexRandomColor() {
-//     var letters = '0123456789ABCDEF';
-//     var color = '#';
-//     for (var i = 0; i < 6; i++ ) {
-//         color += letters[Math.floor(Math.random() * 16)];
-//     }
-//     return color;
-// }
-//
-// var colorArray = ['red', 'green', 'blue', 'pink'];
-// pickRandomArrayColor = function(){
-//     for(var i = 0; i < colorArray.length; i++){
-//         var color = [];
-//         color.push(colorArray[Math.round(Math.random() * colorArray.length)]);
-//         console.log(color);
-//     }
-// };
