@@ -49,7 +49,6 @@ function saveScore(){
     console.log(game.scoresArray);
 }
 
-
 function gameOver(){
     $('#body-wrap').addClass('gameOverDialogue');
     for (var i = 0; i < game.scoresArray.length; i++){
@@ -134,7 +133,7 @@ function sortScoreboard(){
 var scoreboardTimeoutId;
 
 function delayScoreboard() {
-    scoreboardTimeoutId = setTimeout(appendScoreboard, 4000);
+    scoreboardTimeoutId = setTimeout(appendScoreboard, 2500);
 }
 
 // append scoreboard to page
@@ -145,19 +144,18 @@ function appendScoreboard(){
         top: '15%',
         left: '20.5%',
         padding: '2%'});
-    $('#gameover').velocity('fadeOut', { duration: 1000 });
-    $('input').velocity('fadeOut', { duration: 1000 });
-    $('#finalscore').velocity('fadeOut', { duration: 1000 });
-    $('#modal').append('<h1>SCOREBOARD</h1>').velocity('fadeIn', { delay: 1500, duration: 1000 });
+    $('#gameover-modal').velocity('fadeOut', { duration: 1000 });
+    $('#scoreboard-modal').append('<h1>SCOREBOARD</h1>');
     var playerName = localStorage.getItem('name');
     var scoreboard = JSON.parse(localStorage.getItem('scoreboard'));
-    for (var i = 0; i < scoreboard.length; i++){
+    for (var i = 0; i < scoreboard.length && i <= 7; i++){
         var scoreHolder = $('<h4/>');
-        $('#modal').append(scoreHolder);
-        $(scoreHolder).text(scoreboard[i].name + ' : ' + scoreboard[i].totalScore).velocity('fadeIn', { duration: 1000 });
+        $('#scoreboard-modal').append(scoreHolder);
+        $(scoreHolder).text(scoreboard[i].name + ' : ' + scoreboard[i].totalScore);
 
         if (playerName === scoreboard[i].name){
             $(scoreHolder).prop('id','current-player');
         }
     }
+    $('#scoreboard-modal').velocity('fadeIn', { delay: 1500, duration: 1000});
 }
