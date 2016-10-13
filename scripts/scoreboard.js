@@ -1,5 +1,3 @@
-// need to keep track of the number of names that are put up into local storage, and put those into an array?
-
 var game = game || {};
 game.saveScore = saveScore;
 game.scoresArray = [];
@@ -50,7 +48,7 @@ function saveScore(){
 }
 
 function gameOver(){
-    $('#body-wrap').addClass('gameOverDialogue');
+    $('#body-wrap').addClass('gameOverDialogue').velocity('fadeIn', { duration: 1000 });
     for (var i = 0; i < game.scoresArray.length; i++){
         localStorage.setItem('level'+ (i+1), game.scoresArray[i])
     }
@@ -104,9 +102,6 @@ function tallyScore(){
     localStorage.setItem('highscores', JSON.stringify(highScoreArray));
 
 }
-
-//local storage -- get item, push into item, store item
-// need to stringify and then parse
 
 // function CreateScorePairs () {
 //     scoreboard.name = scoreboard.totalScore

@@ -214,13 +214,46 @@ button:focus {
 
     /* Clickable */
     pointer-events: auto;
+}
 
+.pauseDialogue #page-wrap {
+
+    /* Blur and de-color */
+    -webkit-filter: blur(4px) grayscale(50%);
+
+    /* Recede */
+    -webkit-transform: scale(0.9);
+
+}
+
+.pauseDialogue #modal {
+
+    /* Regular size and visible */
+    transform: scale(1); /* prefix me */
+    opacity: 1;
+
+    /* Clickable */
+    pointer-events: auto;
 }
 
 #page-wrap, #modal {
 
     transition: all 0.3s ease; /* prefix me */
 
+}
+
+#paused h2 {
+    color: rgb(255,255,255);
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 100;
+    font-family: Raleway, Helvetica, sans-serif;
+    letter-spacing: 0.25rem;
+    padding: 2%;
+}
+
+#gameover-modal {
+    display:none;
 }
 
 #gameover-modal h1 {

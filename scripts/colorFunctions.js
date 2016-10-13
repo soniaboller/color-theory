@@ -39,7 +39,3 @@ function randomRGBPurple(){
 function randomRGBTeal(){
     return 'rgb(' + 0 + ', ' + randomMid() + ', ' + randomMid() + ')';
 }
-
-function randomRGBColor() {
-    return 'rgb(' + randomRGBNumber() + ', ' + randomRGBNumber() + ', ' + randomRGBNumber() + ')';
-}

@@ -59,7 +59,6 @@ function checkGameLevel (){
         // $('.box').addClass('levelOne');
         $('.rows').addClass('levelOne');
 
-
         // testing with just level 1 class
         // $('.rows').addClass('levelOne');
 
@@ -91,7 +90,6 @@ function checkGameLevel (){
     else {
         console.log('past level')
     }
-
 }
 
 function numberReset(){
@@ -107,40 +105,8 @@ function numberReset(){
     }
 }
 
-
 function saveScore(){
     game.scoresArray.push(game.score);
     console.log(game.score);
     console.log(game.scoresArray);
 }
-
-
-// function saveScore(){
-//     if (game.level === 1){
-//         game.levelOne = game.score;
-//     }
-//     else if (game.level === 2){
-//         game.levelTwo = game.score;
-//     }
-//     else if (game.level === 3){
-//         game.levelThree = game.score;
-//     }
-//     else if (game.level === 4){
-//         game.levelFour = game.score;
-//     }
-//     else if (game.level === 5){
-//         game.levelFive = game.score;
-//     }
-//     else if (game.level === 6){
-//         game.levelSix = game.score;
-//     }
-//     else if (game.level === 7){
-//         game.levelSeven = game.score;
-//     }
-//     else if (game.level === 8){
-//         game.levelEight = game.score;
-//     }
-//     else if (game.level === 9){
-//         game.levelNine = game.score;
-//     }
-// }

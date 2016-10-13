@@ -1,7 +1,3 @@
-// directions & help
-
-// smashing magazine -- local storage
-
 $(document).ready(function(){
     console.log("linked");
 });
@@ -19,13 +15,14 @@ game.timeCount = timeCount;
 game.createRows = createRows;
 game.createBoard = createBoard;
 game.delayGameOverReload = delayGameOverReload;
+game.pause = false;
 
-// jQuery selectors
-    // try to declare selector variables??
+var timer;
+var reloadTimeoutId;
 
-// GLOBAL VARIABLES
 
 // GAMEPLAY FUNCTIONS
+
 function addScore(){
     game.score += 1;
     $('#score-div').html('SCORE : ' + game.score);
@@ -35,8 +32,6 @@ function subtractScore(){
     game.score -= 1;
     $('#score-div').html('SCORE : ' + game.score);
 }
-
-var timer;
 
 function timeCount(){
     timer = setInterval(countDown,1000); // counts down seconds
@@ -94,7 +89,72 @@ function createBoard(){
     game.removeFirstRowBox();
 }
 
+function setBackgroundColors() {
+    if (game.colorButtonChoice === "blue"){
+        game.colorRandomFunction = randomRGBBlue();
+        game.instructionsColor = 'rgba(0,0,255,0.3)';
+    }
+    else if (game.colorButtonChoice === "red"){
+        game.colorRandomFunction = randomRGBRed();
+        game.instructionsColor = 'rgba(255,0,0,0.3)';
+    }
+    else if (game.colorButtonChoice === "purple"){
+        game.colorRandomFunction = randomRGBPurple();
+    }
+    else if (game.colorButtonChoice === "teal"){
+        game.colorRandomFunction = randomRGBTeal();
+    }
+    else if (game.colorButtonChoice === "green"){
+        game.colorRandomFunction = randomRGBGreen();
+        game.instructionsColor = 'rgba(0,255,0,0.3)';
+    }
+    else{
+    }
+}
+
+function delayGameOverReload(){
+    reloadTimeoutId = setTimeout(function(){
+        location.reload()
+    }, 500);
+}
+
+// KEYDOWN FUNCTIONS
+
+$('body').keydown(function(e){
+    console.log(e.which);
+    // can remove the body class stuff
+    var bodyClass = $('#body-wrap').prop('class');
+    console.log(bodyClass);
+    if(e.which === 27 && bodyClass === 'gameOverDialogue'){
+        $('#body-wrap').removeClass('gameOverDialogue');
+        // game.delayGameOverReload();
+    }
+    else if (e.which === 13 && bodyClass === 'gameOverDialogue'){
+        game.getName();
+        $('h6').text('SCORE : ' + game.totalScore);
+        $('#name-input').velocity({ opacity: 0 }, { visibility: 'hidden' });
+    }
+    else if (e.which === 80){
+        console.log('pause');
+        if (!game.pause){
+            clearInterval(timer);
+            clearTimeout(timeoutId);
+            game.pause = true;
+            $('#body-wrap').addClass('pauseDialogue');
+        }
+        else {
+            $('#body-wrap').removeClass('pauseDialogue');
+            timeCount();
+            game.removeFirstRowBox();
+            game.pause = false;
+        }
+    }
+});
+
+
+
 // ON CLICK FUNCTIONS
+
 $('#start').on('click', function(){
     createBoard();
     timeCount();
@@ -122,51 +182,4 @@ $('.color-button').on('click', function(){
     $('#start').velocity('fadeIn', { delay: 500, duration: 500 }); // start button fades in
     console.log(game.colorButtonChoice);
     return game.colorButtonChoice;
-});
-
-function setBackgroundColors() {
-    if (game.colorButtonChoice === "blue"){
-        game.colorRandomFunction = randomRGBBlue();
-        game.instructionsColor = 'rgba(0,0,255,0.3)';
-    }
-    else if (game.colorButtonChoice === "red"){
-        game.colorRandomFunction = randomRGBRed();
-        game.instructionsColor = 'rgba(255,0,0,0.3)';
-    }
-    else if (game.colorButtonChoice === "purple"){
-        game.colorRandomFunction = randomRGBPurple();
-    }
-    else if (game.colorButtonChoice === "teal"){
-        game.colorRandomFunction = randomRGBTeal();
-    }
-    else if (game.colorButtonChoice === "green"){
-        game.colorRandomFunction = randomRGBGreen();
-        game.instructionsColor = 'rgba(0,255,0,0.3)';
-    }
-    else{
-    }
-}
-
-var reloadTimeoutId;
-
-function delayGameOverReload(){
-    reloadTimeoutId = setTimeout(function(){
-        location.reload()
-    }, 500);
-}
-
-$('body').keydown(function(e){
-    console.log(e.which);
-    // can remove the body class stuff
-    var bodyClass = $('#body-wrap').prop('class');
-    console.log(bodyClass);
-    if(e.which === 27 && bodyClass === 'gameOverDialogue'){
-        $('#body-wrap').removeClass('gameOverDialogue');
-        // game.delayGameOverReload();
-    }
-    else if (e.which === 13 && bodyClass === 'gameOverDialogue'){
-        game.getName();
-        $('h6').text('SCORE : ' + game.totalScore);
-        $('#name-input').velocity({ opacity: 0 }, { visibility: 'hidden' });
-    }
 });
