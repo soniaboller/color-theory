@@ -20,7 +20,7 @@ function delayResetBoard() {
     }
 }
 function delayClearBoard() {
-    boardTimeoutId = setTimeout(clearBoard, 2000);
+    boardTimeoutId = setTimeout(clearBoard, 1000);
     function clearBoard(){
         $('.rows').remove();
         $('header').remove();

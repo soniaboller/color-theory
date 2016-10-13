@@ -44,11 +44,11 @@ function removeFirstRowBox(){
 
 function createBox(){
     var rowSelected = $('.box:first-child');
-    console.log(rowSelected[j-1]);
+    // console.log(rowSelected[j-1]);
     $(rowSelected[j-1]).remove();
     setBackgroundColors();
     var newDiv = $('<div class="box"/>');
-    console.log ('#row-' + j);
+    // console.log ('#row-' + j);
     $('#row-' + j).append(newDiv);
     $(newDiv).css('background-color', game.colorRandomFunction);
     $(newDiv).css('display', 'inline');

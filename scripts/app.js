@@ -141,11 +141,12 @@ function delayGameOverReload(){
 
 $('body').keydown(function(e){
     console.log(e.which);
+    // can remove the body class stuff
     var bodyClass = $('#body-wrap').prop('class');
     console.log(bodyClass);
     if(e.which === 27 && bodyClass === 'gameOverDialogue'){
         $('#body-wrap').removeClass('gameOverDialogue');
-        game.delayGameOverReload();
+        // game.delayGameOverReload();
     }
     else if (e.which === 13 && bodyClass === 'gameOverDialogue'){
         getName();

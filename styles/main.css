@@ -106,18 +106,18 @@ span {
 
 
 .levelOne {
-    height: 48.25%;
-    line-height: 2000%;
+    height: 48%;
+    line-height: 48vh;
 }
 
 .levelTwo {
-    height: 32%;
-    line-height: 1500%;
+    height: 31.75%;
+    line-height: 31.75vh;
 }
 
 .levelThree {
-    height: 23.75%;
-    line-height: 1000%;
+    height: 23.5%;
+    line-height: 23.5vh;
 }
 
 .box:hover {
