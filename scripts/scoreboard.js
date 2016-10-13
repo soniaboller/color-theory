@@ -1,19 +1,12 @@
+// need to keep track of the number of names that are put up into local storage, and put those into an array?
+
 var game = game || {};
 game.saveScore = saveScore;
 game.scoresArray = [];
 game.gameOver = gameOver;
 game.getName = getName;
 game.tallyScore = tallyScore;
-// game.levelOne = levelOne;
-// game.levelTwo = levelTwo;
-// game.levelThree = levelThree;
-// game.levelFour = levelFour;
-// game.levelFive = levelFive;
-// game.levelSix = levelSix;
-// game.levelSeven = levelSeven;
-// game.levelEight = levelEight;
-// game.levelNine = levelNine;
-//
+
 
 function Player (name, level1, level2, level3, level4, level5, level6, level7, level8, level9){
     this.name = name;
@@ -26,8 +19,6 @@ function Player (name, level1, level2, level3, level4, level5, level6, level7, l
     this.level7 = level7;
     this.level8 = level8;
     this.level9 = level9;
-
-
 }
 
 function saveScore(){
@@ -50,6 +41,7 @@ function gameOver(){
 
 function getName(){
     var playerName = $('#name-input').val();
+
     localStorage.setItem('name', playerName);
     createPlayerObject()
 }
@@ -57,14 +49,15 @@ function createPlayerObject (){
     var localScoreArray = [];
     for (var i = 0; i <= 8; i++){
         localScoreArray.push(localStorage.getItem('level'+ (i+1)));
-        var name = localStorage.getItem('name');
         console.log(localScoreArray);
     }
+    var name = localStorage.getItem('name');
     var player = new Player(name, localScoreArray[0], localScoreArray[1], localScoreArray[2], localScoreArray[3], localScoreArray[4], localScoreArray[5], localScoreArray[6], localScoreArray[7], localScoreArray[8]);
     console.log(player);
     localStorage.setItem(name, JSON.stringify(player));
     var retrievedObject = localStorage.getItem(name);
-    console.log('parsed: object' + JSON.parse(retrievedObject));
+    var parsedObject = JSON.parse(retrievedObject);
+    console.log(parsedObject);
 }
 
 function tallyScore(){

@@ -131,7 +131,7 @@ span {
     padding: 1% 2%;
     margin-top: 45vh;
     color: #636363;
-    font-family: "Raleway", Helvetica, sans-serif;
+    font-family: Raleway, Helvetica, sans-serif;
     font-weight: 600;
     font-size: 1.5rem;
     letter-spacing: .25rem;
@@ -149,18 +149,15 @@ button:hover {
 }
 
 button#blue:hover {
-    background-color: #0000ff;
-    opacity: 0.6;
+    background-color: rgba(0, 0, 255, 0.6);
 }
 
 button#red:hover {
-    background-color: #ff0000;
-    opacity: 0.6;
+    background-color: rgba(255, 0, 0, 0.6);
 }
 
 button#green:hover {
-    background-color: #00ff00;
-    opacity: 0.6;
+    background-color: rgba(0, 255, 0, 0.6);
 }
 
 button#purple:hover{
@@ -176,6 +173,7 @@ button#teal:hover{
 button#start {
     display: none;
 }
+
 
 button:focus {
     outline: 0;
@@ -226,7 +224,7 @@ button:focus {
 }
 
 #modal h1 {
-    color: #FFFFFF;
+    color: rgb(255,255,255);
     text-align: center;
     padding: 15% 15% 5% 15%;
     font-size: 3rem;
@@ -236,7 +234,7 @@ button:focus {
 }
 
 #modal h6 {
-    color: #FFFFFF;
+    color: rgb(255,255,255);
     text-align: center;
     padding: 1%;
     margin: 5% 0;
@@ -249,10 +247,21 @@ button:focus {
 #modal input {
     margin: 0 30%;
     padding: 1% 10%;
-    background-color: #000;
+    background-color: rgb(0,0,0);
     border: 1px white solid;
-    color: #fff;
+    color: rgb(255,255,255);
     text-align: center;
     text-transform: uppercase;
-
 }
+
+.instructions {
+    font-family: Raleway, Helvetica, sans-serif;
+    font-weight: 100;
+    font-size: 1rem;
+    letter-spacing: 0.25rem;
+    color: rgba(255, 255, 255, 1);
+    margin: 8vh 0;
+    display: none;
+    padding: 7%;
+}
+

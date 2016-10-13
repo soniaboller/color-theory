@@ -100,6 +100,19 @@ $('#start').on('click', function(){
     timeCount();
     $('#start').velocity("fadeOut", { delay: 750, duration: 500 });
     $('.container').addClass('hidden');
+
+});
+
+$('#start').on('mouseover', function(){
+    setBackgroundColors();
+    $('#instructions-one').velocity("fadeIn", { duration: 500 });
+    $('#instructions-one').css('backgroundColor', game.instructionsColor);
+    // $('#instructions-two').velocity("slideDown", {  duration: 500 });
+});
+
+$('#start').on('mouseout', function(){
+    $('#instructions-one').velocity("fadeOut", { duration: 500 });
+    // $('#instructions-two').velocity("slideUp", { duration: 500 });
 });
 
 $('.color-button').on('click', function(){
@@ -114,9 +127,11 @@ $('.color-button').on('click', function(){
 function setBackgroundColors() {
     if (game.colorButtonChoice === "blue"){
         game.colorRandomFunction = randomRGBBlue();
+        game.instructionsColor = 'rgba(0,0,255,0.3)';
     }
     else if (game.colorButtonChoice === "red"){
         game.colorRandomFunction = randomRGBRed();
+        game.instructionsColor = 'rgba(255,0,0,0.3)';
     }
     else if (game.colorButtonChoice === "purple"){
         game.colorRandomFunction = randomRGBPurple();
@@ -126,6 +141,7 @@ function setBackgroundColors() {
     }
     else if (game.colorButtonChoice === "green"){
         game.colorRandomFunction = randomRGBGreen();
+        game.instructionsColor = 'rgba(0,255,0,0.3)';
     }
     else{
     }
