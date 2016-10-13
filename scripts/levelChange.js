@@ -16,7 +16,7 @@ function delayResetBoard() {
     boardTimeoutId = setTimeout(resetBoard, 7000);
     function resetBoard(){
         game.time = 10;
-        game.score = 0;
+        // game.score = 0;
         game.createBoard();
         game.timeCount();
     }

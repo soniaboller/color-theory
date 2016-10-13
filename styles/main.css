@@ -84,10 +84,10 @@ span {
     font-family: Raleway, Helvetica, sans-serif;
     font-weight: 100;
     font-size: 1rem;
-    line-height: 1.5rem;
+    line-height: 1.6rem;
     letter-spacing: 0.25rem;
     color: rgba(255, 255, 255, 1);
-    margin: 8vh 0;
+    margin: 7vh 0;
     display: none;
     padding: 7%;
 }

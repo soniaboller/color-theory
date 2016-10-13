@@ -73,8 +73,8 @@ function createPlayerObject (){
         console.log(localScoreArray);
     }
     var name = localStorage.getItem('name');
-    game.tallyScore();
-
+    // game.tallyScore();
+    game.totalScore = game.score;
     var player = new Player(name, localScoreArray[0], localScoreArray[1], localScoreArray[2], localScoreArray[3], localScoreArray[4], localScoreArray[5], localScoreArray[6], localScoreArray[7], localScoreArray[8], game.totalScore);
     console.log(player);
     localStorage.setItem(name, JSON.stringify(player));
@@ -92,18 +92,18 @@ function createPlayerObject (){
 
 }
 
-function tallyScore(){
-   game.totalScore = game.scoresArray.reduce(function(a, b) {
-        return a + b;
-    }, 0);
-    // gets score array
-    var highScoreArray = JSON.parse(localStorage.getItem('highscores'));
-    // pushes new score into array
-    highScoreArray.push(game.totalScore);
-    // resets local storage score array
-    localStorage.setItem('highscores', JSON.stringify(highScoreArray));
-
-}
+// function tallyScore(){
+//    game.totalScore = game.scoresArray.reduce(function(a, b) {
+//         return a + b;
+//     }, 0);
+//     // gets score array
+//     var highScoreArray = JSON.parse(localStorage.getItem('highscores'));
+//     // pushes new score into array
+//     highScoreArray.push(game.totalScore);
+//     // resets local storage score array
+//     localStorage.setItem('highscores', JSON.stringify(highScoreArray));
+//
+// }
 
 // function CreateScorePairs () {
 //     scoreboard.name = scoreboard.totalScore
