@@ -14,6 +14,7 @@ var boardTimeoutId;
 function delayResetBoard() {
     boardTimeoutId = setTimeout(resetBoard, 7000);
     function resetBoard(){
+        game.time = 10;
         game.score = 0;
         game.createBoard();
         game.timeCount();
@@ -46,7 +47,6 @@ function nextLevel(){
     game.randomColorMultiplier -= 50;
     game.randomColorAdder += 50;
     game.shiftIntervalCounter = 1;
-    game.time = 10;
     game.numberReset();
     game.delayClearBoard();
     game.delayDisplayLevel();

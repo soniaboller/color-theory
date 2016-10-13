@@ -136,14 +136,14 @@ $('body').keydown(function(e){
     }
     else if (e.which === 80){
         console.log('pause');
-        if (!game.pause){
+        if (!game.pause && game.time > 0){
             clearInterval(timer);
             clearTimeout(timeoutId);
             game.pause = true;
-            $('#body-wrap').addClass('pauseDialogue');
+            $('#body-wrap').addClass('gameOverDialogue');
         }
-        else {
-            $('#body-wrap').removeClass('pauseDialogue');
+        else if (game.pause &&game.time > 0){
+            $('#body-wrap').removeClass('gameOverDialogue');
             timeCount();
             game.removeFirstRowBox();
             game.pause = false;

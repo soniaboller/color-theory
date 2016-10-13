@@ -48,7 +48,9 @@ function saveScore(){
 }
 
 function gameOver(){
-    $('#body-wrap').addClass('gameOverDialogue').velocity('fadeIn', { duration: 1000 });
+    $('#paused').remove();
+    $('#body-wrap').addClass('gameOverDialogue').velocity('fadeIn', { duration: 500 });
+    $('#gameover-modal').velocity('fadeIn', { duration: 500 });
     for (var i = 0; i < game.scoresArray.length; i++){
         localStorage.setItem('level'+ (i+1), game.scoresArray[i])
     }
@@ -152,5 +154,5 @@ function appendScoreboard(){
             $(scoreHolder).prop('id','current-player');
         }
     }
-    $('#scoreboard-modal').velocity('fadeIn', { delay: 1500, duration: 1000});
+    $('#scoreboard-modal').velocity('fadeIn', { delay: 1250, duration: 1000});
 }
