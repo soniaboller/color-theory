@@ -130,7 +130,7 @@ function compareColors() {
         game.addScore();
     }
     else {
-        $('#'+ game.id).text('lighter -3');
+        $('#'+ game.id).text('lighter -1');
         console.log('lighter');
         game.subtractScore();
     }

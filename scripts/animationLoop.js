@@ -1,20 +1,20 @@
 var game = game || {};
 // game.animationLoop = animationLoop;
-game.animateBoxes = animateBoxes;
-game.stopAnimateBoxes = stopAnimateBoxes;
+// game.animateBoxes = animateBoxes;
+// game.stopAnimateBoxes = stopAnimateBoxes;
 game.removeFirstRowBox = removeFirstRowBox;
 // game.shiftIntervalCounter = 1;
 
 
-var intervalId;
-
-function animateBoxes(){
-    intervalId = setInterval(removeFirstRowBox, 5000);
-}
-
-function stopAnimateBoxes(){
-    clearInterval(intervalId);
-}
+// var intervalId;
+//
+// function animateBoxes(){
+//     intervalId = setInterval(removeFirstRowBox, 5000);
+// }
+//
+// function stopAnimateBoxes(){
+//     clearInterval(intervalId);
+// }
 
 var j = 1, countup = true;
 

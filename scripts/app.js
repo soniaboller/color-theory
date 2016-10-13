@@ -18,6 +18,7 @@ game.generateBoard = generateBoard;
 game.timeCount = timeCount;
 game.createRows = createRows;
 game.createBoard = createBoard;
+game.delayGameOverReload = delayGameOverReload;
 
 // jQuery selectors
     // try to declare selector variables??
@@ -31,7 +32,7 @@ function addScore(){
 }
 
 function subtractScore(){
-    game.score -= 3;
+    game.score -= 1;
     $('#score-div').html('SCORE : ' + game.score);
 }
 
@@ -41,16 +42,19 @@ function timeCount(){
     timer = setInterval(countDown,1000); // counts down seconds
     function countDown(){
         game.time--;
-        if(game.time === 0){
+        if(game.time === 0 && game.level <= 9){
             $('.box').velocity("fadeOut", { duration: 1000 });
             $('header').velocity("fadeOut", { duration: 1000 });
             game.saveScore();
             game.level +=1;
             game.nextLevel();
-            game.checkGameOver;
+            // game.checkGameOver;
             clearTimeout(timeoutId);
             clearInterval(timer);
             console.log('time zero');
+        }
+        else if (game.time < 0){
+            $('span').css('visibility','hidden');
         }
         $('#time-div').html('time remaining : '+ game.time);
     }
@@ -141,6 +145,14 @@ $('body').keydown(function(e){
     console.log(bodyClass);
     if(e.which === 27 && bodyClass === 'gameOverDialogue'){
         $('#body-wrap').removeClass('gameOverDialogue');
-        delayGameOverReload();
+        game.delayGameOverReload();
+    }
+    else if (e.which === 13 && bodyClass === 'gameOverDialogue'){
+        getName();
+        game.tallyScore();
+        $('h6').text('SCORE : ' + game.totalScore);
+        $('#name-input').fadeTo(500, 0, function(){
+            $('#name-input').css("visibility", "hidden");
+        });
     }
 });

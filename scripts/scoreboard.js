@@ -3,6 +3,7 @@ game.saveScore = saveScore;
 game.scoresArray = [];
 game.gameOver = gameOver;
 game.getName = getName;
+game.tallyScore = tallyScore;
 // game.levelOne = levelOne;
 // game.levelTwo = levelTwo;
 // game.levelThree = levelThree;
@@ -33,18 +34,14 @@ function gameOver(){
     }
     clearTimeout(timeoutId);
     clearInterval(timer);
+    game.createBoard();
+    $('span').css('visibility','hidden');
 }
 
 function getName(){
-    $('input').keydown(function(e){
-        console.log(e.which);
-        if(e.which === 13){
-            console.log('input keydown works');
-            var playerName = this.val();
-            localStorage.setItem('name', playerName)
-        }
-        createPlayerObject();
-    });
+    var playerName = $('#name-input').val();
+    localStorage.setItem('name', playerName);
+    createPlayerObject()
 }
 function createPlayerObject (){
     for (var i = 0; i < game.scoresArray.length; i++){
@@ -53,4 +50,10 @@ function createPlayerObject (){
         var player = new Player(name, 'level-'+ i);
         console.log(player);
     }
+}
+
+function tallyScore(){
+   game.totalScore = game.scoresArray.reduce(function(a, b) {
+        return a + b;
+    }, 0);
 }

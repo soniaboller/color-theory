@@ -3,7 +3,7 @@ game.nextLevel = nextLevel;
 game.delayResetBoard = delayResetBoard;
 game.delayClearBoard = delayClearBoard;
 game.delayDisplayLevel = delayDisplayLevel;
-game.checkScore = checkScore;
+// game.checkScore = checkScore;
 game.checkGameLevel = checkGameLevel;
 game.numberReset = numberReset;
 game.saveScore = saveScore;
@@ -20,7 +20,7 @@ function delayResetBoard() {
     }
 }
 function delayClearBoard() {
-    boardTimeoutId = setTimeout(clearBoard, 3000);
+    boardTimeoutId = setTimeout(clearBoard, 2000);
     function clearBoard(){
         $('.rows').remove();
         $('header').remove();
@@ -38,6 +38,10 @@ function delayDisplayLevel() {
 }
 
 function nextLevel(){
+    if (game.level === 10) {
+        gameOver();
+        return
+    }
     game.randomColorMultiplier -= 50;
     game.randomColorAdder += 50;
     game.shiftIntervalCounter = 1;
@@ -86,6 +90,7 @@ function checkGameLevel (){
     else {
         console.log('past level')
     }
+
 }
 
 function numberReset(){
@@ -99,19 +104,8 @@ function numberReset(){
         game.randomColorMultiplier = 150;
         game.randomColorAdder = 106;
     }
-    else if (game.level === 10){
-        gameOver();
-    }
 }
 
-function checkScore () {
-    if (game.score < 1) {
-        game.gameOver();
-    }
-    else {
-        game.nextLevel();
-    }
-}
 
 function saveScore(){
     game.scoresArray.push(game.score);
