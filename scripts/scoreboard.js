@@ -6,9 +6,24 @@ game.scoresArray = [];
 game.gameOver = gameOver;
 game.getName = getName;
 game.tallyScore = tallyScore;
+game.createPlayerObject = createPlayerObject;
 
+function createScoreboard(){
+    var checkStorage = localStorage.getItem('highscores');
+    var checkScoreboard = localStorage.getItem('sortedscoreboard');
+    if (typeof checkStorage == 'object'){
+        localStorage.setItem('highscores', JSON.stringify([]));
+    }
+    if (typeof checkScoreboard == 'object'){
+        localStorage.setItem('scoreboard', JSON.stringify([]));
+    }
+    if (typeof checkScoreboard == 'object'){
+    localStorage.setItem('sortedscoreboard', JSON.stringify([]));
+    }
+}
+createScoreboard();
 
-function Player (name, level1, level2, level3, level4, level5, level6, level7, level8, level9){
+function Player (name, level1, level2, level3, level4, level5, level6, level7, level8, level9, totalScore) {
     this.name = name;
     this.level1 = level1;
     this.level2 = level2;
@@ -19,8 +34,15 @@ function Player (name, level1, level2, level3, level4, level5, level6, level7, l
     this.level7 = level7;
     this.level8 = level8;
     this.level9 = level9;
+    this.totalScore = totalScore;
 }
 
+function PlayerHighScore (name, totalScore){
+    this.name = name;
+    this.totalScore = totalScore;
+}
+
+// saves score per level
 function saveScore(){
     game.scoresArray.push(game.score);
     console.log(game.score);
@@ -40,11 +62,11 @@ function gameOver(){
 }
 
 function getName(){
-    var playerName = $('#name-input').val();
-
+    var playerName = $('#name-input').val().toUpperCase();
     localStorage.setItem('name', playerName);
     createPlayerObject()
 }
+
 function createPlayerObject (){
     var localScoreArray = [];
     for (var i = 0; i <= 8; i++){
@@ -52,16 +74,90 @@ function createPlayerObject (){
         console.log(localScoreArray);
     }
     var name = localStorage.getItem('name');
-    var player = new Player(name, localScoreArray[0], localScoreArray[1], localScoreArray[2], localScoreArray[3], localScoreArray[4], localScoreArray[5], localScoreArray[6], localScoreArray[7], localScoreArray[8]);
+    game.tallyScore();
+
+    var player = new Player(name, localScoreArray[0], localScoreArray[1], localScoreArray[2], localScoreArray[3], localScoreArray[4], localScoreArray[5], localScoreArray[6], localScoreArray[7], localScoreArray[8], game.totalScore);
     console.log(player);
     localStorage.setItem(name, JSON.stringify(player));
-    var retrievedObject = localStorage.getItem(name);
-    var parsedObject = JSON.parse(retrievedObject);
-    console.log(parsedObject);
+    var retrievedPlayerObject = localStorage.getItem(name);
+    var parsedPlayerObject = JSON.parse(retrievedPlayerObject);
+    console.log('name and all level scores:' + parsedPlayerObject);
+
+    var scoreboardObject = new PlayerHighScore(name, game.totalScore);
+    console.log(scoreboardObject);
+    var scoreboardArray = JSON.parse(localStorage.getItem('scoreboard'));
+    scoreboardArray.push(scoreboardObject);
+    localStorage.setItem('scoreboard', JSON.stringify(scoreboardArray));
+
+    sortScoreboard();
+
 }
 
 function tallyScore(){
    game.totalScore = game.scoresArray.reduce(function(a, b) {
         return a + b;
     }, 0);
+    // gets score array
+    var highScoreArray = JSON.parse(localStorage.getItem('highscores'));
+    // pushes new score into array
+    highScoreArray.push(game.totalScore);
+    // resets local storage score array
+    localStorage.setItem('highscores', JSON.stringify(highScoreArray));
+
+}
+
+//local storage -- get item, push into item, store item
+// need to stringify and then parse
+
+// function CreateScorePairs () {
+//     scoreboard.name = scoreboard.totalScore
+// }
+
+function sortScoreboard(){
+    var scoreboard = JSON.parse(localStorage.getItem('scoreboard'));
+    scoreboard.sort(function(a, b) {
+        return b.totalScore - a.totalScore;
+    });
+    console.log(scoreboard);
+    localStorage.setItem('scoreboard', JSON.stringify(scoreboard));
+
+    // var scorePairs = {};
+    // scorePairs[scoreboard.name] = scoreboard.totalScore;
+    // // var scorePairs = new CreateScorePairs(scoreboard.name);
+    // console.log('scorePairs: '+ scorePairs);
+    // var sortedScoreboardArray = JSON.parse(localStorage.getItem('sortedscoreboard'));
+    // sortedScoreboardArray.push(scorePairs);
+    // localStorage.setItem('sortedscoreboard', JSON.stringify(sortedScoreboardArray));
+    delayScoreboard();
+}
+
+var scoreboardTimeoutId;
+
+function delayScoreboard() {
+    scoreboardTimeoutId = setTimeout(appendScoreboard, 4000);
+}
+
+// append scoreboard to page
+function appendScoreboard(){
+    $('#modal').velocity({
+        width:'55%',
+        height: '63%',
+        top: '15%',
+        left: '20.5%',
+        padding: '2%'});
+    $('#gameover').velocity('fadeOut', { duration: 1000 });
+    $('input').velocity('fadeOut', { duration: 1000 });
+    $('#finalscore').velocity('fadeOut', { duration: 1000 });
+    $('#modal').append('<h1>SCOREBOARD</h1>').velocity('fadeIn', { delay: 1500, duration: 1000 });
+    var playerName = localStorage.getItem('name');
+    var scoreboard = JSON.parse(localStorage.getItem('scoreboard'));
+    for (var i = 0; i < scoreboard.length; i++){
+        var scoreHolder = $('<h4/>');
+        $('#modal').append(scoreHolder);
+        $(scoreHolder).text(scoreboard[i].name + ' : ' + scoreboard[i].totalScore).velocity('fadeIn', { duration: 1000 });
+
+        if (playerName === scoreboard[i].name){
+            $(scoreHolder).prop('id','current-player');
+        }
+    }
 }

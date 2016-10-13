@@ -1,3 +1,5 @@
+// slow down time for when there are less rows
+
 var game = game || {};
 // game.animationLoop = animationLoop;
 // game.animateBoxes = animateBoxes;

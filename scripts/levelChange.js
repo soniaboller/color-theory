@@ -19,8 +19,9 @@ function delayResetBoard() {
         game.timeCount();
     }
 }
+
 function delayClearBoard() {
-    boardTimeoutId = setTimeout(clearBoard, 1000);
+    boardTimeoutId = setTimeout(clearBoard, 500);
     function clearBoard(){
         $('.rows').remove();
         $('header').remove();

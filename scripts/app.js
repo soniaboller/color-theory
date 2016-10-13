@@ -43,8 +43,8 @@ function timeCount(){
     function countDown(){
         game.time--;
         if(game.time === 0 && game.level <= 9){
-            $('.box').velocity("fadeOut", { duration: 1000 });
-            $('header').velocity("fadeOut", { duration: 1000 });
+            $('.box').velocity('fadeOut', { duration: 1000 });
+            $('header').velocity('fadeOut', { duration: 1000 });
             game.saveScore();
             game.level +=1;
             game.nextLevel();
@@ -89,7 +89,7 @@ function createBoard(){
     $('#score-div').text('SCORE : ' + game.score);
     $('#time-div').text('time remaining : ' + game.time);
     generateBoard();
-    $('.rows').velocity("fadeIn", { duration: 1000 });
+    $('.rows').velocity('fadeIn', { duration: 1000 });
     $('.box').on('click', game.boxClick);
     game.removeFirstRowBox();
 }
@@ -98,28 +98,28 @@ function createBoard(){
 $('#start').on('click', function(){
     createBoard();
     timeCount();
-    $('#start').velocity("fadeOut", { delay: 750, duration: 500 });
+    $('#start').velocity('fadeOut', { delay: 750, duration: 500 });
     $('.container').addClass('hidden');
 
 });
 
 $('#start').on('mouseover', function(){
     setBackgroundColors();
-    $('#instructions-one').velocity("fadeIn", { duration: 500 });
+    $('#instructions-one').velocity('fadeIn', { duration: 500 });
     $('#instructions-one').css('backgroundColor', game.instructionsColor);
     // $('#instructions-two').velocity("slideDown", {  duration: 500 });
 });
 
 $('#start').on('mouseout', function(){
-    $('#instructions-one').velocity("fadeOut", { duration: 500 });
+    $('#instructions-one').velocity('fadeOut', { duration: 500 });
     // $('#instructions-two').velocity("slideUp", { duration: 500 });
 });
 
 $('.color-button').on('click', function(){
     // turn into chooseColour(color) - green, blue, etc
     game.colorButtonChoice = this.id; // stores color button choice in game
-    $('.color-button').velocity("fadeOut", { duration: 500 }); // color buttons fade out
-    $('#start').velocity("fadeIn", { delay: 500, duration: 500 }); // start button fades in
+    $('.color-button').velocity('fadeOut', { duration: 500 }); // color buttons fade out
+    $('#start').velocity('fadeIn', { delay: 500, duration: 500 }); // start button fades in
     console.log(game.colorButtonChoice);
     return game.colorButtonChoice;
 });
@@ -165,11 +165,8 @@ $('body').keydown(function(e){
         // game.delayGameOverReload();
     }
     else if (e.which === 13 && bodyClass === 'gameOverDialogue'){
-        getName();
-        game.tallyScore();
+        game.getName();
         $('h6').text('SCORE : ' + game.totalScore);
-        $('#name-input').fadeTo(500, 0, function(){
-            $('#name-input').css("visibility", "hidden");
-        });
+        $('#name-input').velocity({ opacity: 0 }, { visibility: 'hidden' });
     }
 });
