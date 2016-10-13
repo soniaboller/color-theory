@@ -80,16 +80,20 @@ span {
     /*margin-bottom: 0.03125rem;*/
 }
 
-#row-2 {
-    z-index: 22;
+.instructions {
+    font-family: Raleway, Helvetica, sans-serif;
+    font-weight: 100;
+    font-size: 1rem;
+    line-height: 1.5rem;
+    letter-spacing: 0.25rem;
+    color: rgba(255, 255, 255, 1);
+    margin: 8vh 0;
+    display: none;
+    padding: 7%;
 }
 
-#row-3 {
-    z-index: 44;
-}
-
-#row-4 {
-    z-index: 66;
+#emphasis {
+    font-size: 0.85rem;
 }
 
 .box {
@@ -181,35 +185,33 @@ button:focus {
 
 #modal {
     background: black;
-
+    overflow: scroll;
     position: fixed;
     width: 50%;
     top: 25%;
     left: 25%;
-
-    /* Embiggen */
     transform: scale(1.5);
-
-    /* Hidden */
     opacity: 0;
     pointer-events: none;
 }
 
 
 .gameOverDialogue #page-wrap {
-
-    /* Blur and de-color */
+    /* Blur and fade */
     -webkit-filter: blur(4px) grayscale(50%);
+    filter: blur(4px) grayscale(50%);;
 
     /* Recede */
     -webkit-transform: scale(0.9);
-
+    -moz-transform: scale(0.9);
+    -o-transform: scale(0.9);
 }
 
 .gameOverDialogue #modal {
-
     /* Regular size and visible */
-    transform: scale(1); /* prefix me */
+    -webkit-transform: scale(1);
+    -moz-transform: scale(1);
+    -o-transform: scale(1);
     opacity: 1;
 
     /* Clickable */
@@ -217,13 +219,14 @@ button:focus {
 }
 
 .pauseDialogue #page-wrap {
-
-    /* Blur and de-color */
+    /* Blur and fade */
     -webkit-filter: blur(4px) grayscale(50%);
+    filter: blur(4px) grayscale(50%);;
 
     /* Recede */
     -webkit-transform: scale(0.9);
-
+    -moz-transform: scale(0.9);
+    -o-transform: scale(0.9);
 }
 
 .pauseDialogue #modal {
@@ -237,9 +240,9 @@ button:focus {
 }
 
 #page-wrap, #modal {
-
-    transition: all 0.3s ease; /* prefix me */
-
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
 }
 
 #paused h2 {
@@ -249,7 +252,7 @@ button:focus {
     font-weight: 100;
     font-family: Raleway, Helvetica, sans-serif;
     letter-spacing: 0.25rem;
-    padding: 2%;
+    padding: 4% 2%;
 }
 
 #gameover-modal {
@@ -287,17 +290,6 @@ button:focus {
     text-transform: uppercase;
 }
 
-.instructions {
-    font-family: Raleway, Helvetica, sans-serif;
-    font-weight: 100;
-    font-size: 1rem;
-    letter-spacing: 0.25rem;
-    color: rgba(255, 255, 255, 1);
-    margin: 8vh 0;
-    display: none;
-    padding: 7%;
-}
-
 #current-player {
     outline: 1px #000 solid;
     animation: blink .5s step-end infinite alternate;
@@ -314,7 +306,7 @@ button:focus {
     font-weight: 100;
     font-family: Raleway, Helvetica, sans-serif;
     letter-spacing: 0.75rem;
-    margin: 4%;
+    margin: 3% 4% 4% 4%;
 }
 
 #scoreboard-modal h4 {
@@ -326,6 +318,18 @@ button:focus {
     letter-spacing: 0.25rem;
     font-weight: 100;
     font-family: Raleway, Helvetica, sans-serif;
+}
+
+#esc {
+    color: rgb(255,255,255);
+    text-align: center;
+    font-size: 0.7rem;
+    letter-spacing: 0.25rem;
+    font-weight: 100;
+    font-family: Raleway, Helvetica, sans-serif;
+    margin: 1rem 0 0 0;
+    font-style: italic;
+    display: none;
 }
 
 @keyframes blink { 50% { outline-color: #fff} }

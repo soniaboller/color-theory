@@ -8,6 +8,7 @@ game.checkGameLevel = checkGameLevel;
 game.numberReset = numberReset;
 game.saveScore = saveScore;
 game.scoresArray = [];
+game.animationSpeed = 1500;
 
 var boardTimeoutId;
 
@@ -69,6 +70,7 @@ function checkGameLevel (){
 
         // $('.box').removeClass('levelOne').addClass('levelTwo');
         $('.rows').removeClass('levelOne').addClass('levelTwo');
+        game.animationSpeed = 1250;
 
         //testing with just level 1 class
         // $('.rows').addClass('levelOne');
@@ -79,6 +81,7 @@ function checkGameLevel (){
     else if (game.level >= 7){
         // $('.box').removeClass('levelTwo').addClass('levelThree');
         $('.rows').removeClass('levelTwo').addClass('levelThree');
+        game.animationSpeed = 1000;
 
 
         // testing with just level 1 class

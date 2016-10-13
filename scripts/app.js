@@ -127,7 +127,7 @@ $('body').keydown(function(e){
     console.log(bodyClass);
     if(e.which === 27 && bodyClass === 'gameOverDialogue'){
         $('#body-wrap').removeClass('gameOverDialogue');
-        // game.delayGameOverReload();
+        game.delayGameOverReload();
     }
     else if (e.which === 13 && bodyClass === 'gameOverDialogue'){
         game.getName();
@@ -150,8 +150,6 @@ $('body').keydown(function(e){
         }
     }
 });
-
-
 
 // ON CLICK FUNCTIONS
 

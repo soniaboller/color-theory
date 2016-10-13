@@ -40,7 +40,7 @@ function removeFirstRowBox(){
                 countup = true
             }
         }
-    }, 1000);
+    }, game.animationSpeed);
     game.newBox++;
 }
 

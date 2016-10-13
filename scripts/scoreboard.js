@@ -137,7 +137,7 @@ function delayScoreboard() {
 function appendScoreboard(){
     $('#modal').velocity({
         width:'55%',
-        height: '63%',
+        height: '65%',
         top: '15%',
         left: '20.5%',
         padding: '2%'});
@@ -155,4 +155,6 @@ function appendScoreboard(){
         }
     }
     $('#scoreboard-modal').velocity('fadeIn', { delay: 1250, duration: 1000});
+    $('#scoreboard-modal').append("<h3 id='esc'> press 'esc' to close and refresh </h3>");
+    $('#esc').velocity('fadeIn', {delay: 2000}, {duration: 1000})
 }
