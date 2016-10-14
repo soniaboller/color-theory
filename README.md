@@ -6,7 +6,7 @@
 
 ### Summary
 
-Color Theory randomly generates different shades of red, green, or blue boxes, and animates the boxes within each row. The purpose of the game is to click on boxes that are darker than the two boxes to its left and right. As the levels progress the difference in color shade becomes smaller and more rows are generated. Color theory is 9 levels long, and each level is 20 seconds long. At the end of the game your score is saved in local storage and displayed on scoreboard sorted by high score. Best played when listening to some chill ambient music (https://soundcloud.com/tycho/sets/tycho-dive).
+Color Theory randomly generates different shades of red, green, or blue boxes, and animates the boxes within each row. The purpose of the game is to click on boxes that are darker than the two boxes to its left and right. As the levels progress the difference in color shade becomes smaller and more rows are generated. Color theory is 9 levels long, and each level is 20 seconds long (I know it's totally hard to sit still for 3 straight minutes /--/ so feel free to press 'p' at any point to pause the game. At the end of the game your score is saved in local storage and displayed on scoreboard sorted by high score. Color Theory is best played while listening to some chill ambient music: (https://soundcloud.com/tycho/sets/tycho-dive).
 
 ---
 
@@ -54,13 +54,13 @@ function boxClick(){
 
 ---
 
-### Thought Process / Ideas / Etc
+### Thought Process  /  Ideas  /  Etc.
 
 I wanted to create a very visual and aesthetically pleasing game, which is how I gravitated toward manipulating colors and boxes. The game is meant to be chill and cathartic. Initially I was going to work with completely random colors populating the page, but as I experimented with that I realized that the contrast between all the different colors was jarring and aggressive, and thus I ended up working solely in shades of red, green, or blue.
 
 ---
 
-### Improvements / Moving Forward
+### Improvements  /  Moving Forward
 * Music in the background that can be toggle on or off depending on user preference
 * Game and scoreboard hosted on server
 * Animate boxes in a circle or spiral rather than just left
