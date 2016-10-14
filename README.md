@@ -50,7 +50,7 @@ function boxClick(){
                   game.newBox++;
               });
           }
-          ```
+```
 
 ---
 
