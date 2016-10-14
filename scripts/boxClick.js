@@ -1,4 +1,3 @@
-
 var game = game || {};
 game.boxClick = boxClick;
 game.newBox = 13;
@@ -30,7 +29,6 @@ function boxClick(){
         this.remove();
         setBackgroundColors();
         var rowToAppendTo = rowValue.split('');
-        console.log(rowToAppendTo);
         var newDiv = $('<div class="box"/>');
         $('#'+ rowValue).append(newDiv);
         $(newDiv).css('background-color', game.colorRandomFunction);

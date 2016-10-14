@@ -14,8 +14,10 @@ game.generateBoard = generateBoard;
 game.timeCount = timeCount;
 game.createRows = createRows;
 game.createBoard = createBoard;
+game.delayGameOverReload = delayGameOverReload;
 game.pause = false;
 var timer;
+var reloadTimeoutId;
 var startButton = $('#start');
 var instructions = $('#instructions');
 var bodyWrapper = $('#body-wrap');
@@ -107,11 +109,16 @@ function setBackgroundColors() {
     }
 }
 
-// KEYDOWN FUNCTIONS
+function delayGameOverReload(){
+    reloadTimeoutId = setTimeout(function(){
+        location.reload()
+    }, 750);
+}
 
+// KEYDOWN FUNCTIONS
 $('body').keydown(function(e){
     var bodyClass = $(bodyWrapper).prop('class');
-    if(e.which === 27 && bodyClass === 'gameOverDialogue'){
+    if(e.which === 27 && bodyClass === 'gameOverDialogue' && game.level >= 9){
         $(bodyWrapper).removeClass('gameOverDialogue');
         game.delayGameOverReload();
     }

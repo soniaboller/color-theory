@@ -45,8 +45,6 @@ function PlayerHighScore (name, totalScore){
 // saves score per level
 function saveScore(){
     game.scoresArray.push(game.score);
-    console.log(game.score);
-    console.log(game.scoresArray);
 }
 
 function gameOver(){
@@ -57,7 +55,6 @@ function gameOver(){
         localStorage.setItem('level'+ (i+1), game.scoresArray[i])
     }
     $('span').css('visibility','hidden');
-    clearTimeout(timeoutId);
     clearInterval(timer);
 }
 
@@ -71,19 +68,10 @@ function createPlayerObject (){
     var localScoreArray = [];
     for (var i = 0; i <= 8; i++){
         localScoreArray.push(localStorage.getItem('level'+ (i+1)));
-        console.log(localScoreArray);
     }
     var name = localStorage.getItem('name');
     game.totalScore = game.score;
-    // var player = new Player(name, localScoreArray[0], localScoreArray[1], localScoreArray[2], localScoreArray[3], localScoreArray[4], localScoreArray[5], localScoreArray[6], localScoreArray[7], localScoreArray[8], game.totalScore);
-    // console.log(player);
-    // localStorage.setItem(name, JSON.stringify(player));
-    // var retrievedPlayerObject = localStorage.getItem(name);
-    // var parsedPlayerObject = JSON.parse(retrievedPlayerObject);
-    // console.log('name and all level scores:' + parsedPlayerObject);
-
     var scoreboardObject = new PlayerHighScore(name, game.totalScore);
-    console.log(scoreboardObject);
     var scoreboardArray = JSON.parse(localStorage.getItem('scoreboard'));
     scoreboardArray.push(scoreboardObject);
     localStorage.setItem('scoreboard', JSON.stringify(scoreboardArray));
@@ -96,7 +84,6 @@ function sortScoreboard(){
     scoreboard.sort(function(a, b) {
         return b.totalScore - a.totalScore;
     });
-    console.log(scoreboard);
     localStorage.setItem('scoreboard', JSON.stringify(scoreboard));
     delayScoreboard();
 }
