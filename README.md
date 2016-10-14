@@ -80,5 +80,3 @@ I wanted to create a very visual and aesthetically pleasing game, which is how I
 * Animate boxes in a circle or spiral rather than just left
 * Option for number of levels to play
 * Option to play a specific level indefinitely without a score
-
-[{"name":"IAN","totalScore":121},{"name":"SONIA","totalScore":115},{"name":"NELL","totalScore":111},{"name":"HILLARY","totalScore":111},{"name":"ALEX","totalScore":109},{"name":"EARL","totalScore":108},{"name":"ANDREW","totalScore":102},{"name":"ANNA","totalScore":99},{"name":"GRACE","totalScore":95},{"name":"ANTHONY","totalScore":88},{"name":"BERTHA","totalScore":88}]
