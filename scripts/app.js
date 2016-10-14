@@ -4,7 +4,7 @@ $(document).ready(function(){
 
 var game = game || {};
 game.score = 0;
-game.time = 10;
+game.time = 11;
 game.level = 1;
 game.colorButtonChoice = '';
 game.rowNumber = 2;
@@ -14,10 +14,11 @@ game.generateBoard = generateBoard;
 game.timeCount = timeCount;
 game.createRows = createRows;
 game.createBoard = createBoard;
-game.delayGameOverReload = delayGameOverReload;
 game.pause = false;
 var timer;
-var reloadTimeoutId;
+var startButton = $('#start');
+var instructions = $('#instructions');
+var bodyWrapper = $('#body-wrap');
 
 
 // GAMEPLAY FUNCTIONS
@@ -35,17 +36,21 @@ function timeCount(){
     timer = setInterval(countDown,1000); // counts down seconds
     function countDown(){
         game.time--;
-        if(game.time === 0 && game.level <= 9){
+        if(game.time === 0 && game.level < 9){
+            clearTimeout(boardTimeoutId);
             $('.box').velocity('fadeOut', { duration: 1000 });
             $('header').velocity('fadeOut', { duration: 1000 });
             game.saveScore();
+            console.log('finishing level: '+ game.level);
             game.level +=1;
+            console.log('starting level: '+ game.level);
             game.nextLevel();
             clearTimeout(timeoutId);
             clearInterval(timer);
         }
-        else if (game.time < 0){
-            $('span').css('visibility','hidden');
+        else if (game.time === 0 && game.level >= 9){
+            game.gameOver();
+            return
         }
         $('#time-div').html('time remaining : '+ game.time);
     }
@@ -75,12 +80,14 @@ function generateBoard() {
 }
 
 function createBoard(){
+    generateBoard();
     $('#page-wrap').prepend('<header>');
     $('header').prepend('<span id="score-div"></span>', '<span id="time-div"></span>');
     $('#score-div').text('SCORE : ' + game.score);
     $('#time-div').text('time remaining : ' + game.time);
-    generateBoard();
-    $('.rows').velocity('fadeIn', { duration: 1000 });
+    $('header').velocity('fadeIn', { delay: 750, duration: 1000 });
+    $('span').velocity('fadeIn', { delay: 750, duration: 1000 });
+    $('.rows').velocity('fadeIn', { delay: 750, duration: 1000 });
     $('.box').on('click', game.boxClick);
     game.removeFirstRowBox();
 }
@@ -100,18 +107,12 @@ function setBackgroundColors() {
     }
 }
 
-function delayGameOverReload(){
-    reloadTimeoutId = setTimeout(function(){
-        location.reload()
-    }, 500);
-}
-
 // KEYDOWN FUNCTIONS
 
 $('body').keydown(function(e){
-    var bodyClass = $('#body-wrap').prop('class');
+    var bodyClass = $(bodyWrapper).prop('class');
     if(e.which === 27 && bodyClass === 'gameOverDialogue'){
-        $('#body-wrap').removeClass('gameOverDialogue');
+        $(bodyWrapper).removeClass('gameOverDialogue');
         game.delayGameOverReload();
     }
     else if (e.which === 13 && bodyClass === 'gameOverDialogue'){
@@ -124,10 +125,10 @@ $('body').keydown(function(e){
             clearInterval(timer);
             clearTimeout(timeoutId);
             game.pause = true;
-            $('#body-wrap').addClass('gameOverDialogue');
+            $(bodyWrapper).addClass('gameOverDialogue');
         }
         else if (game.pause &&game.time > 0){
-            $('#body-wrap').removeClass('gameOverDialogue');
+            $(bodyWrapper).removeClass('gameOverDialogue');
             timeCount();
             game.removeFirstRowBox();
             game.pause = false;
@@ -136,15 +137,11 @@ $('body').keydown(function(e){
 });
 
 // ON CLICK FUNCTIONS
-
-var startButton = $('#start');
-var instructions = $('#instructions');
 $(startButton).on('click', function(){
+    $(this).velocity('fadeOut', { duration: 650 });
+    $('.container').velocity('fadeOut', {duration: 650 });
     createBoard();
     timeCount();
-    $(this).velocity('fadeOut', { delay: 750, duration: 500 });
-    $('.container').addClass('hidden');
-
 });
 
 $(startButton).on('mouseover', function(){

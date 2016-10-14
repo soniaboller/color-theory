@@ -10,14 +10,16 @@ game.scoresArray = [];
 game.animationSpeed = 1500;
 
 var boardTimeoutId;
+var levelTimeoutId;
 
 function delayResetBoard() {
-    boardTimeoutId = setTimeout(resetBoard, 7000);
+    boardTimeoutId = setTimeout(resetBoard, 5250);
     function resetBoard(){
-        game.time = 10;
-        // game.score = 0;
+        game.newBox = 13;
+        game.time = 11;
         game.createBoard();
-        game.timeCount();
+        clearTimeout(levelTimeoutId);
+        timeCount();
     }
 }
 
@@ -33,17 +35,12 @@ function delayDisplayLevel() {
     boardTimeoutId = setTimeout(displayLevel, 1000);
     function displayLevel(){
         $('p').text(' LEVEL : ' + game.level);
-        $('#next-level').velocity("fadeIn", { duration: 1000 })
-            .velocity("fadeOut", { delay: 4000, duration: 1000 });
-        // $('#next-level').toggleClass('hidden');
+        $('#next-level').velocity("fadeIn", { duration: 1000 });
+        $('#next-level').velocity("fadeOut", { delay: 3000, duration: 1000 });
     }
 }
 
 function nextLevel(){
-    if (game.level === 10) {
-        gameOver();
-        return
-    }
     game.randomColorMultiplier -= 50;
     game.randomColorAdder += 50;
     game.shiftIntervalCounter = 1;
@@ -51,7 +48,6 @@ function nextLevel(){
     game.delayClearBoard();
     game.delayDisplayLevel();
     game.delayResetBoard();
-    console.log('level '+ game.level + ', color adder: ' + game.randomColorAdder + ', color multiplier: ' + game.randomColorMultiplier);
 }
 
 function checkGameLevel (){
