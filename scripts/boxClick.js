@@ -3,14 +3,14 @@ game.boxClick = boxClick;
 game.newBox = 13;
 
 function boxClick(){
-    game.id = this.id; // id of box clicked
+    game.id = this.id;
     var rowValue = $(this).parent().prop('id');
     var gameIdSelector = $('#' + game.id);
     var nextBox = $(gameIdSelector).next();
     var previousBox = $(gameIdSelector).prev();
-    var clickedColorArray = rgbToArray($(gameIdSelector).css('backgroundColor')); // creates array for clicked color
-    var nextBoxColorArray = rgbToArray(nextBox.css('backgroundColor')); // creates array for next color
-    var previousBoxColorArray = rgbToArray(previousBox.css('backgroundColor')); // creates array for previous color
+    var clickedColorArray = rgbToArray($(gameIdSelector).css('backgroundColor'));
+    var nextBoxColorArray = rgbToArray(nextBox.css('backgroundColor'));
+    var previousBoxColorArray = rgbToArray(previousBox.css('backgroundColor'));
         if(game.colorButtonChoice === 'blue'){
             var i = 2;
         }
@@ -24,7 +24,6 @@ function boxClick(){
     game.nextColor = parseInt(nextBoxColorArray[0][i]);
     game.previousColor = parseInt(previousBoxColorArray[0][i]);
     compareColors();
-    // boxes fading out on click
     $(gameIdSelector).fadeOut(500, function(){
         this.remove();
         setBackgroundColors();

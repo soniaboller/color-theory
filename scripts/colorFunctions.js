@@ -2,9 +2,10 @@ var game = game || {};
 game.randomColorMultiplier = 150;
 game.randomColorAdder = 106;
 
+// takes RGB color value from box and converts it from a string to a an array that can be used to compare color values
 function rgbToArray(colorToConvert){
-    colorArray = [];
-    var color = colorToConvert.substring(3).replace('(', '').replace(')', ''); // cuts off the rgb part of color tag
+    var colorArray = [];
+    var color = colorToConvert.substring(3).replace('(', '').replace(')', ''); // removes the rgb and parenthesis of color tag
     colorArray.push(color.split(', ')); // removes the commas and pushes into color array
     return colorArray;
 }

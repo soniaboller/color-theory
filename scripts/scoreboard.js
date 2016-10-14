@@ -23,20 +23,6 @@ function createScoreboard(){
 }
 createScoreboard();
 
-function Player (name, level1, level2, level3, level4, level5, level6, level7, level8, level9, totalScore) {
-    this.name = name;
-    this.level1 = level1;
-    this.level2 = level2;
-    this.level3 = level3;
-    this.level4 = level4;
-    this.level5 = level5;
-    this.level6 = level6;
-    this.level7 = level7;
-    this.level8 = level8;
-    this.level9 = level9;
-    this.totalScore = totalScore;
-}
-
 function PlayerHighScore (name, totalScore){
     this.name = name;
     this.totalScore = totalScore;

@@ -12,17 +12,17 @@ game.animationSpeed = 1500;
 var boardTimeoutId;
 var levelTimeoutId;
 
-function delayResetBoard() {
-    boardTimeoutId = setTimeout(resetBoard, 5250);
-    function resetBoard(){
-        game.newBox = 13;
-        game.time = 21;
-        game.createBoard();
-        clearTimeout(levelTimeoutId);
-        timeCount();
+// delays displaying level so fadeout of board can occur
+function delayDisplayLevel() {
+    boardTimeoutId = setTimeout(displayLevel, 1000);
+    function displayLevel(){
+        $('p').text(' LEVEL : ' + game.level);
+        $('#next-level').velocity("fadeIn", { duration: 1000 });
+        $('#next-level').velocity("fadeOut", { delay: 3000, duration: 1000 });
     }
 }
 
+// delays complete removal of board so fadeout can occur
 function delayClearBoard() {
     boardTimeoutId = setTimeout(clearBoard, 750);
     function clearBoard(){
@@ -31,12 +31,15 @@ function delayClearBoard() {
     }
 }
 
-function delayDisplayLevel() {
-    boardTimeoutId = setTimeout(displayLevel, 1000);
-    function displayLevel(){
-        $('p').text(' LEVEL : ' + game.level);
-        $('#next-level').velocity("fadeIn", { duration: 1000 });
-        $('#next-level').velocity("fadeOut", { delay: 3000, duration: 1000 });
+// delays board reset so level number can be displayed
+function delayResetBoard() {
+    boardTimeoutId = setTimeout(resetBoard, 5250);
+    function resetBoard(){
+        game.newBox = 13;
+        game.time = 21;
+        game.createBoard();
+        clearTimeout(levelTimeoutId);
+        timeCount();
     }
 }
 
@@ -64,6 +67,7 @@ function checkGameLevel (){
     }
 }
 
+// resets game number variable as levels progress
 function numberReset(){
     if (game.level === 4){
         game.rowNumber = 3;

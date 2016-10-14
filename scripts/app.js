@@ -24,6 +24,7 @@ var bodyWrapper = $('#body-wrap');
 
 
 // GAMEPLAY FUNCTIONS
+
 function addScore(){
     game.score += 1;
     $('#score-div').html('SCORE : ' + game.score);
@@ -34,6 +35,7 @@ function subtractScore(){
     $('#score-div').html('SCORE : ' + game.score);
 }
 
+// tracks time
 function timeCount(){
     timer = setInterval(countDown,1000); // counts down seconds
     function countDown(){
@@ -58,6 +60,7 @@ function timeCount(){
     }
 }
 
+// creates the rows that the boxes populate
 function createRows() {
     game.numberReset();
     for (var i = 1; i <= game.rowNumber; i++) {
@@ -68,6 +71,7 @@ function createRows() {
     game.checkGameLevel();
 }
 
+// generates the board, but is hidden with css
 function generateBoard() {
     game.createRows();
     for (var j = 1; j <= game.rowNumber; j++) {
@@ -81,6 +85,7 @@ function generateBoard() {
     }
 }
 
+// appends the board to the DOM
 function createBoard(){
     generateBoard();
     $('#page-wrap').prepend('<header>');
@@ -94,6 +99,7 @@ function createBoard(){
     game.removeFirstRowBox();
 }
 
+// checks which color button was selected and determines further functions accordingly
 function setBackgroundColors() {
     if (game.colorButtonChoice === "blue"){
         game.colorRandomFunction = randomRGBBlue();
@@ -109,13 +115,16 @@ function setBackgroundColors() {
     }
 }
 
+// delays reload after esc key is pressed after scoreboard is displayed
 function delayGameOverReload(){
     reloadTimeoutId = setTimeout(function(){
         location.reload()
     }, 750);
 }
 
+
 // KEYDOWN FUNCTIONS
+
 $('body').keydown(function(e){
     var bodyClass = $(bodyWrapper).prop('class');
     if(e.which === 27 && bodyClass === 'gameOverDialogue' && game.level >= 9){
@@ -143,7 +152,9 @@ $('body').keydown(function(e){
     }
 });
 
+
 // ON CLICK FUNCTIONS
+
 $(startButton).on('click', function(){
     $(this).velocity('fadeOut', { duration: 650 });
     $('.container').velocity('fadeOut', {duration: 650 });
@@ -162,9 +173,8 @@ $(startButton).on('mouseout', function(){
 });
 
 $('.color-button').on('click', function(){
-    // turn into chooseColour(color) - green, blue, etc
-    game.colorButtonChoice = this.id; // stores color button choice in game
-    $('.color-button').velocity('fadeOut', { duration: 500 }); // color buttons fade out
-    $(startButton).velocity('fadeIn', { delay: 500, duration: 500 }); // start button fades in
+    game.colorButtonChoice = this.id;
+    $('.color-button').velocity('fadeOut', { duration: 500 });
+    $(startButton).velocity('fadeIn', { delay: 500, duration: 500 });
     return game.colorButtonChoice;
 });
