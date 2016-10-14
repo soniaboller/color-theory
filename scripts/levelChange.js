@@ -3,7 +3,6 @@ game.nextLevel = nextLevel;
 game.delayResetBoard = delayResetBoard;
 game.delayClearBoard = delayClearBoard;
 game.delayDisplayLevel = delayDisplayLevel;
-// game.checkScore = checkScore;
 game.checkGameLevel = checkGameLevel;
 game.numberReset = numberReset;
 game.saveScore = saveScore;
@@ -23,7 +22,7 @@ function delayResetBoard() {
 }
 
 function delayClearBoard() {
-    boardTimeoutId = setTimeout(clearBoard, 500);
+    boardTimeoutId = setTimeout(clearBoard, 750);
     function clearBoard(){
         $('.rows').remove();
         $('header').remove();
@@ -57,41 +56,15 @@ function nextLevel(){
 
 function checkGameLevel (){
     if (game.level < 4){
-        // $('.box').addClass('levelOne');
         $('.rows').addClass('levelOne');
-
-        // testing with just level 1 class
-        // $('.rows').addClass('levelOne');
-
-        //testing with just level 3
-        // $('.rows').addClass('levelThree');
     }
     else if (game.level >= 4 && game.level < 7){
-
-        // $('.box').removeClass('levelOne').addClass('levelTwo');
         $('.rows').removeClass('levelOne').addClass('levelTwo');
         game.animationSpeed = 1250;
-
-        //testing with just level 1 class
-        // $('.rows').addClass('levelOne');
-
-        //testing with just level 3
-        // $('.rows').addClass('levelThree');
     }
     else if (game.level >= 7){
-        // $('.box').removeClass('levelTwo').addClass('levelThree');
         $('.rows').removeClass('levelTwo').addClass('levelThree');
         game.animationSpeed = 1000;
-
-
-        // testing with just level 1 class
-        // $('.rows').addClass('levelOne');
-
-        //testing with just level 3
-        // $('.rows').addClass('levelThree');
-    }
-    else {
-        console.log('past level')
     }
 }
 

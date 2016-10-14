@@ -2,6 +2,12 @@ p, body, header {
     margin: 0;
 }
 
+html, p, body, header, h1, h2, h3, h4, h5, h6, div, span {
+    color: #fff;
+    font-family: Raleway, Helvetica, sans-serif;
+    font-weight: 100;
+}
+
 body {
     background-color: #000;
     width: 100vw;
@@ -20,18 +26,13 @@ header {
     margin-left: 0.33%;
     width: 33%;
     float: left;
-    color: #fff;
-    font-family: Raleway, Helvetica, sans-serif;
-    font-weight: 100;
     letter-spacing: 0.5rem;
     font-size: 1.25rem;
 }
+
 #time-div {
     width: 66.66%;
     float: right;
-    color: #fff;
-    font-family: Raleway, Helvetica, sans-serif;
-    font-weight: 100;
     letter-spacing: 0.5rem;
     font-size: 1.25rem;
     text-align: right;
@@ -80,13 +81,10 @@ span {
     /*margin-bottom: 0.03125rem;*/
 }
 
-.instructions {
-    font-family: Raleway, Helvetica, sans-serif;
-    font-weight: 100;
+#instructions {
     font-size: 1rem;
     line-height: 1.6rem;
     letter-spacing: 0.25rem;
-    color: rgba(255, 255, 255, 1);
     margin: 7vh 0;
     display: none;
     padding: 7%;

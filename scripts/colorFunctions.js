@@ -11,13 +11,6 @@ function rgbToArray(colorToConvert){
 
 function randomRGBNumber() {
     return Math.floor((Math.random() * game.randomColorMultiplier) + game.randomColorAdder);
-    // 100 + 156 level 2?
-    // 50 + 206 level 3?
-}
-
-// mid range number to keep colors less dark
-function randomMid(){
-    return Math.floor((Math.random() * 175) + 106);
 }
 
 function randomRGBBlue(){
@@ -30,12 +23,4 @@ function randomRGBRed(){
 
 function randomRGBGreen(){
     return 'rgb(' + 0 + ', ' + randomRGBNumber() + ', ' + 0 + ')';
-}
-
-function randomRGBPurple(){
-    return 'rgb(' + randomMid() + ', ' + 0 + ', ' + randomMid() + ')';
-}
-
-function randomRGBTeal(){
-    return 'rgb(' + 0 + ', ' + randomMid() + ', ' + randomMid() + ')';
 }

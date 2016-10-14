@@ -16,13 +16,11 @@ game.createRows = createRows;
 game.createBoard = createBoard;
 game.delayGameOverReload = delayGameOverReload;
 game.pause = false;
-
 var timer;
 var reloadTimeoutId;
 
 
 // GAMEPLAY FUNCTIONS
-
 function addScore(){
     game.score += 1;
     $('#score-div').html('SCORE : ' + game.score);
@@ -43,10 +41,8 @@ function timeCount(){
             game.saveScore();
             game.level +=1;
             game.nextLevel();
-            // game.checkGameOver;
             clearTimeout(timeoutId);
             clearInterval(timer);
-            console.log('time zero');
         }
         else if (game.time < 0){
             $('span').css('visibility','hidden');
@@ -98,17 +94,9 @@ function setBackgroundColors() {
         game.colorRandomFunction = randomRGBRed();
         game.instructionsColor = 'rgba(255,0,0,0.3)';
     }
-    else if (game.colorButtonChoice === "purple"){
-        game.colorRandomFunction = randomRGBPurple();
-    }
-    else if (game.colorButtonChoice === "teal"){
-        game.colorRandomFunction = randomRGBTeal();
-    }
     else if (game.colorButtonChoice === "green"){
         game.colorRandomFunction = randomRGBGreen();
         game.instructionsColor = 'rgba(0,255,0,0.3)';
-    }
-    else{
     }
 }
 
@@ -121,10 +109,7 @@ function delayGameOverReload(){
 // KEYDOWN FUNCTIONS
 
 $('body').keydown(function(e){
-    console.log(e.which);
-    // can remove the body class stuff
     var bodyClass = $('#body-wrap').prop('class');
-    console.log(bodyClass);
     if(e.which === 27 && bodyClass === 'gameOverDialogue'){
         $('#body-wrap').removeClass('gameOverDialogue');
         game.delayGameOverReload();
@@ -135,7 +120,6 @@ $('body').keydown(function(e){
         $('#name-input').velocity({ opacity: 0 }, { visibility: 'hidden' });
     }
     else if (e.which === 80){
-        console.log('pause');
         if (!game.pause && game.time > 0){
             clearInterval(timer);
             clearTimeout(timeoutId);
@@ -153,31 +137,30 @@ $('body').keydown(function(e){
 
 // ON CLICK FUNCTIONS
 
-$('#start').on('click', function(){
+var startButton = $('#start');
+var instructions = $('#instructions');
+$(startButton).on('click', function(){
     createBoard();
     timeCount();
-    $('#start').velocity('fadeOut', { delay: 750, duration: 500 });
+    $(this).velocity('fadeOut', { delay: 750, duration: 500 });
     $('.container').addClass('hidden');
 
 });
 
-$('#start').on('mouseover', function(){
+$(startButton).on('mouseover', function(){
     setBackgroundColors();
-    $('#instructions-one').velocity('fadeIn', { duration: 500 });
-    $('#instructions-one').css('backgroundColor', game.instructionsColor);
-    // $('#instructions-two').velocity("slideDown", {  duration: 500 });
+    $(instructions).velocity('fadeIn', { duration: 500 });
+    $(instructions).css('backgroundColor', game.instructionsColor);
 });
 
-$('#start').on('mouseout', function(){
-    $('#instructions-one').velocity('fadeOut', { duration: 500 });
-    // $('#instructions-two').velocity("slideUp", { duration: 500 });
+$(startButton).on('mouseout', function(){
+    $(instructions).velocity('fadeOut', { duration: 500 });
 });
 
 $('.color-button').on('click', function(){
     // turn into chooseColour(color) - green, blue, etc
     game.colorButtonChoice = this.id; // stores color button choice in game
     $('.color-button').velocity('fadeOut', { duration: 500 }); // color buttons fade out
-    $('#start').velocity('fadeIn', { delay: 500, duration: 500 }); // start button fades in
-    console.log(game.colorButtonChoice);
+    $(startButton).velocity('fadeIn', { delay: 500, duration: 500 }); // start button fades in
     return game.colorButtonChoice;
 });
